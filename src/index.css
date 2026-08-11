@@ -986,6 +986,167 @@ a {
   font-style: italic;
 }
 
+/* =========================================================
+   EDUCATION FOCUS TAGS
+========================================================= */
+
+.education-focus {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 14px;
+}
+
+
+.education-entry .education-focus span {
+  padding: 5px 9px;
+
+  color: var(--ink-soft);
+
+  background:
+    rgba(197, 164, 94, 0.07);
+
+  border:
+    1px solid rgba(151, 118, 62, 0.22);
+
+  border-radius: 2px;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 0.68rem;
+
+  font-style: normal;
+
+  font-weight: 500;
+
+  line-height: 1;
+
+  letter-spacing: 0.02em;
+}
+
+/* =========================================================
+   LEADERSHIP PAGE
+========================================================= */
+
+.leadership-period {
+  margin-top: -10px !important;
+  margin-bottom: 16px !important;
+
+  color: var(--burgundy) !important;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 0.9rem !important;
+
+  font-style: italic;
+}
+
+
+/* =========================================================
+   LEADERSHIP ROLES
+========================================================= */
+
+.leadership-roles {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin: 3px 0 18px;
+}
+
+
+.leadership-role {
+  padding: 7px 12px;
+
+  background:
+    rgba(197, 164, 94, 0.07);
+
+  border-left:
+    2px solid var(--gold);
+
+  border-top:
+    1px solid rgba(151, 118, 62, 0.16);
+
+  border-right:
+    1px solid rgba(151, 118, 62, 0.16);
+
+  border-bottom:
+    1px solid rgba(151, 118, 62, 0.16);
+}
+
+
+.leadership-role span {
+  display: block;
+
+  color: var(--ink);
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 0.94rem;
+
+  font-weight: 600;
+}
+
+
+.leadership-role small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--ink-soft);
+
+  font-size: 0.63rem;
+
+  font-weight: 400;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.02em;
+}
+
+
+/* =========================================================
+   LEADERSHIP DETAILS
+========================================================= */
+
+.leadership-section {
+  margin-top: 4px;
+}
+
+
+.leadership-highlights {
+  margin: 7px 0 0;
+
+  padding-left: 18px;
+}
+
+
+.leadership-highlights li {
+  margin-bottom: 7px;
+
+  color: var(--ink-soft);
+
+  font-size: 0.76rem;
+
+  line-height: 1.35;
+}
+
+
+.leadership-highlights li::marker {
+  color: var(--gold);
+}
+
 
 /* =========================================================
    BACK COVER

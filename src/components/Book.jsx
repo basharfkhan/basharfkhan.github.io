@@ -200,29 +200,38 @@ function Book() {
             ======================== */}
             <BookPage>
 
-            <span className="page-number">
+             <span className="page-number">
                 01
-            </span>
+             </span>
 
-            <p className="eyebrow">
+             <p className="eyebrow">
                 About
-            </p>
+             </p>
 
-            <h2>
+             <h2>
                 Turning data into decisions.
-            </h2>
+             </h2>
 
-            <p>
+             <p>
                 I'm a Data Science graduate student at Rochester
-                Institute of Technology interested in building
-                machine learning systems, data pipelines, and
-                analytical products that solve practical problems.
-            </p>
+                Institute of Technology interested in Machine Learning and AI.
+                I enjoy building systems that turn raw data into 
+                useful predictions, pipelines, and analytical products.
+             </p>
 
-            <p>
-                My work spans machine learning, data engineering,
-                APIs, databases, and visualization.
-            </p>
+             <p>
+                My interests span machine learning, data engineering,
+                databases, AI engineering, and data visualization.
+                I particularly enjoy projects where I can work across the
+                full lifecycle, from collecting and cleaning data to
+                modeling, deployment, and communicating results.
+             </p>
+
+             <p>
+                I'm currently looking for opportunities where I can apply
+                these skills to real-world data problems while continuing
+                to grow as a Data Scientist and Machine Learning Engineer.
+             </p>
 
             </BookPage>
 
@@ -513,8 +522,16 @@ function Book() {
 
                 <span>
                 Expected December 2026
-                </span>
+                </span> 
 
+                <div className="education-focus">
+                  <span>Machine Learning</span>
+                  <span>Data Engineering</span>
+                  <span>Statistics</span>
+                  <span>Databases</span>
+                  <span>Big Data</span>
+                  <span>Data Visualization</span>
+                </div>
             </div>
 
 
@@ -540,31 +557,82 @@ function Book() {
             {/* ========================
                 LEADERSHIP
             ======================== */}
-            <BookPage>
+            <BookPage className="leadership-page">
 
-            <p className="eyebrow">
-                Leadership
-            </p>
+              <p className="eyebrow">
+                Leadership & Community
+              </p>
 
-            <h2>
+              <h2>
                 Tiger Tales Toastmasters
-            </h2>
+              </h2>
 
-            <p>
-                Served as President, Vice President of Education,
-                and Vice President of Membership.
-            </p>
+              <p className="leadership-period">
+                January 2025 — June 2026
+              </p>
 
-            <p>
-                Led membership, mentorship, and engagement
-                initiatives across the club.
-            </p>
 
-            <p>
-                Served as Contest Master for Club and Area
-                Tall Tales Speech Contests involving four
-                Toastmasters clubs.
-            </p>
+              <div className="leadership-roles">
+
+                <div className="leadership-role">
+                  <span>President</span>
+                  <small>Strategy, Direction & Long-term Growth</small>
+                </div>
+
+                <div className="leadership-role">
+                  <span>Vice President of Education</span>
+                  <small>Meeting Planning & Member Development</small>
+                </div>
+
+                <div className="leadership-role">
+                  <span>Vice President of Membership</span>
+                  <small>Membership Recruitment, Onboarding & Retention</small>
+                </div>
+
+              </div>
+
+
+              <div className="leadership-section">
+
+                <span className="project-section-label">
+                  Leadership
+                </span>
+
+                <ul className="leadership-highlights">
+
+                  <li>
+                    Helped shape the club's long-term direction by coordinating
+                    with fellow officers on priorities, member engagement, and
+                    initiatives supporting sustainable club growth.
+                  </li>
+
+                  <li>
+                    Planned and coordinated weekly meeting agendas, ensuring
+                    speaking opportunities and meeting roles were assigned while
+                    helping members stay on track with their educational progress.
+                  </li>
+
+                  <li>
+                    Supported members through feedback, mentorship, and
+                    opportunities to develop their public speaking, communication,
+                    and leadership skills.
+                  </li>
+
+                  <li>
+                    Led membership recruitment and onboarding efforts, serving
+                    as a primary point of contact for prospective and new members
+                    and answering questions about the club and Toastmasters program.
+                  </li>
+
+                  <li>
+                    Served as Contest Master for Tall Tales Speech Contests at
+                    both Club and Area levels, coordinating participants, judges,
+                    logistics, and event flow across four Toastmasters clubs.
+                  </li>
+
+                </ul>
+
+              </div>
 
             </BookPage>
 
