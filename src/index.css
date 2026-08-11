@@ -645,6 +645,148 @@ a {
   font-weight: 600;
 }
 
+/* =========================================================
+   PROJECT CHAPTER
+========================================================= */
+
+.project-subtitle {
+  margin-top: -5px !important;
+  margin-bottom: 18px !important;
+
+  color: var(--burgundy);
+
+  font-size: 1.08rem !important;
+
+  font-style: italic;
+}
+
+
+/* =========================================================
+   PROJECT SECTIONS
+========================================================= */
+
+.project-section {
+  margin-top: 18px;
+}
+
+
+.project-section-label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--burgundy);
+
+  font-size: 0.64rem;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.16em;
+}
+
+/* =========================================================
+   WHAT I DID
+========================================================= */
+
+.project-approach {
+  margin: 8px 0 0;
+
+  padding-left: 18px;
+}
+
+
+.project-approach li {
+  margin-bottom: 8px;
+
+  color: var(--ink-soft);
+
+  font-size: 0.82rem;
+
+  line-height: 1.42;
+}
+
+
+.project-approach li::marker {
+  color: var(--gold);
+}
+
+/* =========================================================
+   Project IMAGE
+========================================================= */
+
+.project-images {
+  width: 100%;
+  margin: 5px 0 15px;
+}
+
+.project-images.multiple-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+
+.project-image-wrapper {
+  width: 100%;
+
+  margin: 0;
+
+  padding: 9px;
+
+  background:
+    rgba(255, 255, 255, 0.27);
+
+  border:
+    1px solid rgba(151, 118, 62, 0.19);
+
+  box-shadow:
+    0 5px 12px rgba(70, 50, 30, 0.07);
+}
+
+
+.project-image {
+  display: block;
+
+  width: 100%;
+
+  height: auto;
+
+  max-height: 210px;
+
+  object-fit: contain;
+
+  user-select: none;
+}
+
+
+.project-image-wrapper figcaption {
+  margin-top: 7px;
+
+  color: var(--ink-soft);
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 0.72rem;
+
+  font-style: italic;
+
+  line-height: 1.3;
+
+  text-align: center;
+}
+
+.project-images.multiple-images .project-image {
+  max-height: 145px;
+}
+
+.project-images.multiple-images figcaption {
+  font-size: 0.66rem;
+}
 
 /* =========================================================
    PROJECT DETAILS
@@ -672,6 +814,31 @@ a {
   color: var(--burgundy);
 }
 
+/* =========================================================
+   PROJECT RESULTS
+========================================================= */
+
+.project-results {
+  margin-top: 16px;
+}
+
+
+.project-results .project-highlights {
+  margin-top: 7px;
+  margin-bottom: 12px;
+}
+
+
+.project-results .project-highlights li {
+  margin-bottom: 7px;
+
+  color: var(--ink-soft);
+
+  font-size: 0.79rem;
+
+  line-height: 1.37;
+}
+
 
 /* =========================================================
    PROJECT STAT CARDS
@@ -683,25 +850,27 @@ a {
   grid-template-columns:
     repeat(2, 1fr);
 
-  gap: 12px;
+  gap: 10px;
 
-  margin-top: 22px;
+  margin-top: 12px;
 }
 
 
 .project-stat {
-  padding: 16px;
+  padding: 13px 15px;
 
   background:
-    rgba(197, 164, 94, 0.06);
+    rgba(197, 164, 94, 0.055);
 
   border:
-    1px solid rgba(151, 118, 62, 0.25);
+    1px solid rgba(151, 118, 62, 0.23);
 }
 
 
 .project-stat strong {
   display: block;
+
+  margin-bottom: 2px;
 
   color: var(--burgundy);
 
@@ -710,39 +879,23 @@ a {
     Georgia,
     serif;
 
-  font-size: 1.8rem;
+  font-size: 1.65rem;
+
+  line-height: 1;
 }
 
 
 .project-stat span {
   color: var(--ink-soft);
 
-  font-size: 0.70rem;
+  font-size: 0.65rem;
+
+  font-weight: 500;
 
   text-transform: uppercase;
 
   letter-spacing: 0.08em;
 }
-
-
-/* =========================================================
-   PROJECT VISUAL
-========================================================= */
-
-.project-visual {
-  width: 100%;
-
-  margin: 18px 0 22px;
-
-  padding: 18px;
-
-  background:
-    rgba(197, 164, 94, 0.055);
-
-  border:
-    1px solid rgba(151, 118, 62, 0.20);
-}
-
 
 /* =========================================================
    PROJECT LINKS
@@ -758,7 +911,7 @@ a {
 
 
 .project-links a {
-  padding: 9px 13px;
+  padding: 8px 12px;
 
   color: var(--burgundy);
 
@@ -770,7 +923,7 @@ a {
     Georgia,
     serif;
 
-  font-size: 1rem;
+  font-size: 0.95rem;
 
   font-weight: 600;
 
@@ -1209,6 +1362,44 @@ a {
 
     border-bottom:
       1px solid rgba(100, 74, 39, 0.18);
+  }
+
+  .mobile-project-image {
+    margin: 28px 0;
+
+    padding: 8px;
+
+    background: rgba(255, 255, 255, 0.3);
+
+    border:
+      1px solid rgba(151, 118, 62, 0.20);
+  }
+
+
+  .mobile-project-image img {
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+  }
+
+
+  .mobile-project-image figcaption {
+    margin-top: 8px;
+
+    color: var(--ink-soft);
+
+    font-family:
+      "Cormorant Garamond",
+      Georgia,
+      serif;
+
+    font-size: 0.8rem;
+
+    font-style: italic;
+
+    text-align: center;
   }
 
 

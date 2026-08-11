@@ -7,7 +7,9 @@ function Book() {
   const book = useRef();
 
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(14);
+  const [totalPages, setTotalPages] = useState(
+    6 + projects.length * 2
+  );
 
   // Important page locations
   const pageIndex = {
@@ -281,86 +283,207 @@ function Book() {
             ======================== */}
             {projects.flatMap((project) => [
 
-            <BookPage
+              /* ======================================================
+                LEFT PAGE — PROJECT OVERVIEW
+              ====================================================== */
+
+              <BookPage
                 key={`${project.number}-intro`}
-            >
+                className="project-intro-page"
+              >
 
                 <span className="page-number">
-                {project.number}
+                  {project.number}
                 </span>
 
                 <p className="eyebrow">
-                Selected Project
+                  {project.type}
                 </p>
 
                 <h2>
-                {project.title}
+                  {project.title}
                 </h2>
 
-                <h3>
-                {project.subtitle}
+                <h3 className="project-subtitle">
+                  {project.subtitle}
                 </h3>
 
-                <p>
-                {project.description}
-                </p>
+
+                <div className="project-section">
+
+                  <span className="project-section-label">
+                    The Problem
+                  </span>
+
+                  <p>
+                    {project.problem}
+                  </p>
+
+                </div>
+
+
+                <div className="project-section">
+
+                  <span className="project-section-label">
+                    What I Did
+                  </span>
+
+                  <ul className="project-approach">
+
+                    {project.approach.slice(0, 3).map((item) => (
+
+                      <li key={item}>
+                        {item}
+                      </li>
+
+                    ))}
+
+                  </ul>
+
+                </div>
+
 
                 <div className="tech-list">
 
-                {project.technologies.map((tech) => (
+                  {project.technologies.map((tech) => (
+
                     <span key={tech}>
-                    {tech}
+                      {tech}
                     </span>
-                ))}
+
+                  ))}
 
                 </div>
 
-            </BookPage>,
+              </BookPage>,
 
 
-            <BookPage
+              /* ======================================================
+                RIGHT PAGE — CASE STUDY
+              ====================================================== */
+
+              <BookPage
                 key={`${project.number}-details`}
-            >
+                className="project-detail-page"
+              >
 
                 <p className="eyebrow">
-                Project {project.number}
+                  Project {project.number} · Case Study
                 </p>
 
                 <h2>
-                Inside the project
+                  Architecture & Results
                 </h2>
 
-                <ul className="project-highlights">
 
-                {project.highlights.map((highlight) => (
-                    <li key={highlight}>
-                    {highlight}
-                    </li>
-                ))}
+                {/* Project Images */}
 
-                </ul>
+                {project.images && project.images.length > 0 && (
+                  <div
+                    className={`project-images ${
+                      project.images.length > 1 ? "multiple-images" : ""
+                    }`}
+                  >
+                    {project.images.map((image) => (
+                      <figure
+                        className="project-image-wrapper"
+                        key={image.src}
+                      >
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="project-image"
+                          draggable="false"
+                        />
 
-                <div className="project-links">
+                        {image.caption && (
+                          <figcaption>
+                            {image.caption}
+                          </figcaption>
+                        )}
+                      </figure>
+                    ))}
+                  </div>
+                )}
 
-                <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    GitHub ↗
-                </a>
 
-                <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    View Project ↗
-                </a>
+                {/* Project statistics */}
+
+                <div className="project-stat-grid">
+
+                  {project.stats.map((stat) => (
+
+                    <div
+                      className="project-stat"
+                      key={stat.label}
+                    >
+
+                      <strong>
+                        {stat.value}
+                      </strong>
+
+                      <span>
+                        {stat.label}
+                      </span>
+
+                    </div>
+
+                  ))}
 
                 </div>
 
-            </BookPage>,
+
+                {/* Key results */}
+
+                <div className="project-results">
+
+                  <span className="project-section-label">
+                    Key Takeaways
+                  </span>
+
+                  <ul className="project-highlights">
+
+                    {project.highlights.map((highlight) => (
+
+                      <li key={highlight}>
+                        {highlight}
+                      </li>
+
+                    ))}
+
+                  </ul>
+
+                </div>
+
+
+                {/* Links */}
+
+                <div className="project-links">
+
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View GitHub ↗
+                  </a>
+
+
+                  {project.demo && (
+
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Live Demo ↗
+                    </a>
+
+                  )}
+
+                </div>
+
+              </BookPage>, 
 
             ])}
 

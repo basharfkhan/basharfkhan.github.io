@@ -68,6 +68,23 @@ function MobilePortfolio() {
 
           <p>{project.description}</p>
 
+          {project.image && (
+            <figure className="mobile-project-image">
+
+              <img
+                src={project.image}
+                alt={project.imageAlt}
+              />
+
+              {project.imageCaption && (
+                <figcaption>
+                  {project.imageCaption}
+                </figcaption>
+              )}
+
+            </figure>
+          )}
+
           <ul>
             {project.highlights.map((item) => (
               <li key={item}>{item}</li>

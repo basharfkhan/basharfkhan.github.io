@@ -1,89 +1,367 @@
 export const projects = [
+
+  /* ======================================================
+     PROJECT 01
+     DATA SCIENCE SALARY ESTIMATOR
+  ====================================================== */
+
   {
     number: "01",
+
     title: "Data Science Salary Estimator",
-    subtitle: "End-to-End ML & API Deployment",
+
+    subtitle:
+      "End-to-End Machine Learning & API Deployment",
+
+    type:
+      "Personal Project",
+
     description:
-      "An end-to-end machine learning pipeline for predicting salary ranges using more than 1,000 scraped job postings.",
-    highlights: [
-      "Engineered features using Python, AWS, and Excel",
-      "Trained Linear Regression, Lasso, and Random Forest models",
-      "Achieved approximately $11K MAE",
-      "Deployed real-time inference through a Flask REST API",
+      "An end-to-end machine learning system for estimating Data Science salaries from job descriptions, company attributes, location, and technical skill requirements.",
+
+    problem:
+      "Data Science salaries vary significantly across roles, companies, locations, experience levels, and required technologies. This project explores whether those job attributes can be transformed into useful features for salary prediction.",
+
+    approach: [
+      "Scraped Data Science job postings and salary information from Glassdoor using Python and Selenium.",
+      "Cleaned salary, company, location, seniority, and job-description fields.",
+      "Engineered features representing technologies and job characteristics.",
+      "Compared multiple regression models including Linear Regression, Lasso, and Random Forest.",
+      "Deployed the trained model through a Flask REST API for real-time inference."
     ],
+
+    stats: [
+      {
+        value: "1,000+",
+        label: "Job Postings"
+      },
+      {
+        value: "~$11K",
+        label: "Best MAE"
+      }
+    ],
+
+    highlights: [
+      "Random Forest achieved the strongest predictive performance among the evaluated models.",
+      "Used hyperparameter tuning to improve model performance.",
+      "Built a Flask REST API that accepts job attributes and returns salary predictions."
+    ],
+
     technologies: [
       "Python",
+      "Pandas",
+      "Selenium",
       "Scikit-learn",
       "Flask",
-      "AWS",
-      "REST API",
+      "REST API"
     ],
-    github: "#",
-    demo: "#",
+
+    images: [
+      {
+        src: "/images/wordcloud.png",
+        alt: "Word cloud generated from Data Science job postings",
+        caption:
+          "Common terms appearing across scraped Data Science job postings."
+      }
+    ],
+
+    github:
+      "https://github.com/basharfkhan/DS_Salary_Project",
+
+    demo: null
   },
+
+
+  /* ======================================================
+     PROJECT 02
+     PATIENT READMISSION
+  ====================================================== */
 
   {
     number: "02",
-    title: "Stock Market Data Platform",
-    subtitle: "Medallion Architecture & Data Engineering",
+
+    title:
+      "Patient Readmission Prediction",
+
+    subtitle:
+      "Clinical Machine Learning Classification",
+
+    type:
+      "Machine Learning Project",
+
     description:
-      "A Bronze-Silver-Gold data architecture designed for reliable stock-market data processing, governance, and analytics.",
-    highlights: [
-      "Built Bronze, Silver, and Gold data layers",
-      "Created hourly and daily ETL pipelines",
-      "Implemented incremental data updates",
-      "Used MongoDB for archival and auditability",
+      "A machine learning workflow for predicting hospital readmission using clinical and encounter-level patient data.",
+
+    problem:
+      "Hospital readmissions can represent significant healthcare costs and may indicate opportunities for improved patient follow-up. This project explores whether patient and encounter characteristics can help identify patients at higher risk of readmission.",
+
+    approach: [
+      "Explored and prepared patient records from the diabetes readmission dataset.",
+      "Handled missing data and transformed categorical variables for machine learning.",
+      "Compared several classification algorithms including Random Forest and XGBoost.",
+      "Applied model tuning and evaluated predictive performance.",
+      "Examined feature importance to understand variables associated with readmission risk."
     ],
+
+    stats: [
+      {
+        value: "5",
+        label: "Models Compared"
+      },
+      {
+        value: "4",
+        label: "Evaluation Metrics"
+      }
+    ],
+
+    highlights: [
+      "Compared multiple machine learning classifiers on the same clinical prediction problem.",
+      "Random Forest and XGBoost produced strong overall results.",
+      "Used feature-importance analysis to better understand influential clinical variables."
+    ],
+
     technologies: [
       "Python",
-      "SQL",
-      "MongoDB",
-      "ETL",
-      "Data Engineering",
+      "Pandas",
+      "Scikit-learn",
+      "XGBoost",
+      "Jupyter"
     ],
-    github: "#",
-    demo: "#",
+
+    images: [
+      {
+        src: "/images/model-eval.png",
+        alt: "Model performance comparison for hospital readmission prediction",
+        caption:
+          "Accuracy comparison across the machine learning models evaluated."
+      },
+      {
+        src: "/images/feature-importance-xgb.png",
+        alt: "Top feature importance values for XGBoost",
+        caption:
+          "XGBoost feature importance highlights influential patient and encounter variables."
+      }
+    ],
+
+    github:
+      "https://github.com/basharfkhan/Hospital_Readmission_Prediciton",
+
+    demo: null
   },
+
+
+  /* ======================================================
+     PROJECT 03
+     LAMBDA ARCHITECTURE
+  ====================================================== */
 
   {
     number: "03",
-    title: "Patient Readmission Prediction",
-    subtitle: "Clinical Machine Learning",
+
+    title:
+      "Banking System with Lambda Architecture",
+
+    subtitle:
+      "Real-Time Credit Card Transaction Processing",
+
+    type:
+      "RIT Course Project",
+
     description:
-      "Machine learning classification models for predicting hospital readmission using the UCI diabetes dataset.",
-    highlights: [
-      "Logistic Regression",
-      "Random Forest",
-      "Gradient Boosting",
-      "GridSearchCV hyperparameter optimization",
+      "A simulated banking transaction-processing system combining real-time stream processing, batch processing, and a serving layer using Lambda Architecture.",
+
+    problem:
+      "Financial transaction systems need to process incoming activity quickly while also maintaining reliable historical information for downstream queries and analysis. Lambda Architecture provides separate stream and batch processing paths that converge in a serving layer.",
+
+    approach: [
+      "Published transaction events through Kafka for real-time processing.",
+      "Validated incoming transactions through the streaming path.",
+      "Processed transaction data through a separate batch-processing layer.",
+      "Combined processed results through a serving layer.",
+      "Persisted transaction and account information using MySQL."
     ],
+
+    stats: [
+      {
+        value: "3",
+        label: "Core Layers"
+      },
+      {
+        value: "Real-Time",
+        label: "Streaming"
+      }
+    ],
+
+    highlights: [
+      "Combined batch and streaming workflows within one data architecture.",
+      "Used Kafka for event-driven transaction processing.",
+      "Used a serving layer to make processed transaction information available for downstream queries."
+    ],
+
     technologies: [
       "Python",
-      "Scikit-learn",
-      "Pandas",
-      "Machine Learning",
+      "Kafka",
+      "MySQL",
+      "Streaming",
+      "Lambda Architecture"
     ],
-    github: "#",
-    demo: "#",
+
+    images: [
+      {
+        src: "/images/lambda-architecture.png",
+        alt: "Lambda Architecture with batch, stream, and serving layers",
+        caption:
+          "Lambda Architecture design model with batch and stream processing converging in the serving layer."
+      }
+    ],
+
+    github:
+      "https://github.com/basharfkhan/Banking-System-with-Lambda-Architecture",
+
+    demo: null
   },
+
+
+  /* ======================================================
+     PROJECT 04
+     MEDALLION ARCHITECTURE
+  ====================================================== */
 
   {
     number: "04",
-    title: "World Layoffs Analysis",
-    subtitle: "Data Analysis & Visualization",
+
+    title:
+      "Stock Market Data Processing",
+
+    subtitle:
+      "PySpark & Medallion Architecture",
+
+    type:
+      "RIT Course Project",
+
     description:
-      "Exploratory analysis of global layoffs with an interactive dashboard for identifying geographic and industry trends.",
-    highlights: [
-      "Cleaned global layoffs data",
-      "Analyzed trends using SQL and Python",
-      "Built an interactive Tableau dashboard",
+      "A PySpark data pipeline implementing Medallion Architecture for stock-market data, transforming multiple source datasets into structured and analytics-ready data products.",
+
+    problem:
+      "Stock-market analytics requires combining transaction, market, and company information from different sources and transforming that data into reliable datasets that can support downstream analytics and insights.",
+
+    approach: [
+      "Ingested transaction, market, and stock information into the Bronze layer.",
+      "Used PySpark to clean, enrich, structure, and integrate source data.",
+      "Produced cleaned and enriched hourly stock data in the Silver layer.",
+      "Generated daily, monthly, and quarterly Gold-layer datasets.",
+      "Prepared the Gold data products for downstream analytics and insight generation."
     ],
+
+    stats: [
+      {
+        value: "3",
+        label: "Medallion Layers"
+      },
+      {
+        value: "3",
+        label: "Gold Aggregations"
+      }
+    ],
+
+    highlights: [
+      "Implemented Bronze, Silver, and Gold stages using Medallion Architecture principles.",
+      "Used the Silver layer for cleaned, enriched, and structured hourly stock data.",
+      "Produced daily, monthly, and quarterly Gold datasets designed for downstream analytics."
+    ],
+
+    technologies: [
+      "PySpark",
+      "Python",
+      "MySQL",
+      "MongoDB",
+      "Medallion Architecture"
+    ],
+
+    images: [
+      {
+        src: "/images/medallion-architecture.png",
+        alt: "Medallion Architecture for stock market data processing",
+        caption:
+          "Bronze → Silver hourly data → Gold daily, monthly, and quarterly data → Analytics."
+      }
+    ],
+
+    github:
+      "https://github.com/basharfkhan/Medallion_Architecture_for_Stock_Market_Data",
+
+    demo: null
+  },
+
+
+  /* ======================================================
+     PROJECT 05
+     WORLD LAYOFFS
+  ====================================================== */
+
+  {
+    number: "05",
+
+    title:
+      "World Layoffs Analysis",
+
+    subtitle:
+      "SQL Data Cleaning & Exploratory Analysis",
+
+    type:
+      "Data Analysis Project",
+
+    description:
+      "An exploratory analysis of global layoffs focused on cleaning raw workforce-reduction data and identifying trends across companies, industries, and geographic regions.",
+
+    problem:
+      "Raw layoffs datasets contain duplicates, missing information, inconsistent formats, and multiple dimensions that must be cleaned before meaningful trends can be analyzed.",
+
+    approach: [
+      "Removed duplicate records from the raw dataset.",
+      "Standardized inconsistent fields and data formats.",
+      "Handled missing values using SQL.",
+      "Performed exploratory analysis across companies, industries, and geographic regions.",
+      "Created visualizations for communicating key patterns and trends."
+    ],
+
+    stats: [
+      {
+        value: "SQL",
+        label: "Core Analysis"
+      },
+      {
+        value: "3",
+        label: "Trend Dimensions"
+      }
+    ],
+
+    highlights: [
+      "Analyzed layoffs across industries and geographic regions.",
+      "Examined company-level workforce reduction patterns.",
+      "Created a cleaned dataset suitable for downstream analysis and visualization."
+    ],
+
     technologies: [
       "MySQL",
-      "Python",
+      "SQL",
       "Tableau",
+      "EDA"
     ],
-    github: "#",
-    demo: "#",
-  },
+
+    images: [
+      {
+        src: "/images/world-layoffs.png",
+        alt: "Tableau dashboard showing worldwide layoffs",
+        caption:
+          "Interactive Tableau dashboard exploring layoffs by geography, industry, company, and time."
+      }
+    ],
+
+    github:
+      "https://github.com/basharfkhan/EDA_of_World_Layoffs",
+
+    demo: null
+  }
+
 ];
