@@ -28,7 +28,7 @@ export const projects = [
       "Built a hybrid ranker that folds in a user vector from each new rating in under 1 ms, shifting from content-based to collaborative signals as feedback grows.",
       "Served it through FastAPI with Postgres + pgvector, a Claude-powered onboarding chat, and a Next.js frontend, deployed with Docker and GitHub Actions CI.",
       "Tuned serving hyper-parameters on a validation split, uncovering a popularity-bias failure that collapsed catalog coverage to 2%.",
-      "Added MMR diversity, an author cap, and explanations for every recommendation."
+      "Enriched 8,000+ books with Open Library descriptions, and added MMR diversity, an author cap, and explanations for every recommendation."
     ],
 
     stats: [
@@ -37,14 +37,14 @@ export const projects = [
         label: "NDCG@20 vs Matrix Factorization"
       },
       {
-        value: "2% → 53%",
+        value: "2% → 54%",
         label: "Catalog Coverage After Tuning"
       }
     ],
 
     highlights: [
-      "Served hybrid reaches NDCG@20 of 0.242, 2.7× a popularity baseline, while updating from new ratings instantly.",
-      "Beats the popularity baseline by 52% with only 5 known ratings, addressing cold start.",
+      "Served hybrid reaches NDCG@20 of 0.241, 2.7× a popularity baseline, while updating from new ratings instantly.",
+      "Beats the popularity baseline by 49% with only 5 known ratings, addressing cold start.",
       "Live on Vercel, Render, and Neon with CI covering unit, pipeline, and Postgres integration tests."
     ],
 
@@ -63,7 +63,7 @@ export const projects = [
     images: [
       {
         src: "/images/alexandria-results.png",
-        alt: "Bar chart of NDCG@20 by model: hybrid 0.242, BPR 0.183, hybrid with 5 ratings 0.135, popularity 0.089, content only 0.026",
+        alt: "Bar chart of NDCG@20 by model: hybrid 0.241, BPR 0.183, hybrid with 5 ratings 0.133, popularity 0.089, content only 0.025",
         caption:
           "Ranking quality on held-out Goodreads ratings. The served hybrid beats matrix factorization and popularity baselines."
       }
