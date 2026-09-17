@@ -68,22 +68,26 @@ function MobilePortfolio() {
 
           <p>{project.description}</p>
 
-          {project.image && (
-            <figure className="mobile-project-image">
+          {project.images?.map((image) => (
+            <figure
+              className="mobile-project-image"
+              key={image.src}
+            >
 
               <img
-                src={project.image}
-                alt={project.imageAlt}
+                src={image.src}
+                alt={image.alt}
+                loading="lazy"
               />
 
-              {project.imageCaption && (
+              {image.caption && (
                 <figcaption>
-                  {project.imageCaption}
+                  {image.caption}
                 </figcaption>
               )}
 
             </figure>
-          )}
+          ))}
 
           <ul>
             {project.highlights.map((item) => (
@@ -95,6 +99,27 @@ function MobilePortfolio() {
             {project.technologies.map((tech) => (
               <span key={tech}>{tech}</span>
             ))}
+          </div>
+
+          <div className="mobile-project-links">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+            >
+              View GitHub ↗
+            </a>
+
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noreferrer"
+                className="primary"
+              >
+                Live Demo ↗
+              </a>
+            )}
           </div>
         </section>
       ))}

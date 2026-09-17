@@ -1683,6 +1683,53 @@ a {
   }
 
 
+  /* Same burgundy/gold link style as the book's case-study pages, sized for touch. */
+  .mobile-project-links {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 22px;
+  }
+
+
+  .mobile-project-links a {
+    display: inline-flex;
+
+    align-items: center;
+
+    min-height: 44px;
+
+    padding: 0 16px;
+
+    color: var(--burgundy);
+
+    border: 1px solid var(--gold);
+
+    font-family:
+      "Cormorant Garamond",
+      Georgia,
+      serif;
+
+    font-size: 1.05rem;
+
+    font-weight: 600;
+
+    text-decoration: none;
+  }
+
+
+  .mobile-project-links a.primary {
+    color: #fff8e6;
+
+    background: var(--burgundy);
+
+    border-color: var(--burgundy);
+  }
+
+
   .project-number {
     position: absolute;
 
