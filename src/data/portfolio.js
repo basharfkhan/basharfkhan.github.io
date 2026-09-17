@@ -2,11 +2,88 @@ export const projects = [
 
   /* ======================================================
      PROJECT 01
-     DATA SCIENCE SALARY ESTIMATOR
+     ALEXANDRIA BOOK RECOMMENDER
   ====================================================== */
 
   {
     number: "01",
+
+    title:
+      "Alexandria: Book Recommender",
+
+    subtitle:
+      "Full-Stack Recommender System That Learns As You Read",
+
+    type:
+      "Deployed Personal Project",
+
+    description:
+      "A deployed, end-to-end book recommendation system that personalizes instantly as readers rate books, combining collaborative filtering, text embeddings, and an LLM onboarding librarian.",
+
+    problem:
+      "New readers have no history, and retraining a model every time someone rates a book is impractical. The goal was a recommender that gives good picks from a few genres or favorite books, then adapts in real time as feedback arrives, like a streaming feed.",
+
+    approach: [
+      "Trained BPR matrix factorization in PyTorch on 6M Goodreads ratings and embedded 10k books with sentence-transformers, tracking experiments in MLflow.",
+      "Built a hybrid ranker that folds in a user vector from each new rating in under 1 ms, shifting from content-based to collaborative signals as feedback grows.",
+      "Served it through FastAPI with Postgres + pgvector, a Claude-powered onboarding chat, and a Next.js frontend, deployed with Docker and GitHub Actions CI.",
+      "Tuned serving hyper-parameters on a validation split, uncovering a popularity-bias failure that collapsed catalog coverage to 2%.",
+      "Added MMR diversity, an author cap, and explanations for every recommendation."
+    ],
+
+    stats: [
+      {
+        value: "+32%",
+        label: "NDCG@20 vs Matrix Factorization"
+      },
+      {
+        value: "2% → 53%",
+        label: "Catalog Coverage After Tuning"
+      }
+    ],
+
+    highlights: [
+      "Served hybrid reaches NDCG@20 of 0.242, 2.7× a popularity baseline, while updating from new ratings instantly.",
+      "Beats the popularity baseline by 52% with only 5 known ratings, addressing cold start.",
+      "Live on Vercel, Render, and Neon with CI covering unit, pipeline, and Postgres integration tests."
+    ],
+
+    technologies: [
+      "PyTorch",
+      "FastAPI",
+      "PostgreSQL",
+      "pgvector",
+      "Next.js",
+      "TypeScript",
+      "Docker",
+      "MLflow",
+      "Claude API"
+    ],
+
+    images: [
+      {
+        src: "/images/alexandria-results.png",
+        alt: "Bar chart of NDCG@20 by model: hybrid 0.242, BPR 0.183, hybrid with 5 ratings 0.135, popularity 0.089, content only 0.026",
+        caption:
+          "Ranking quality on held-out Goodreads ratings. The served hybrid beats matrix factorization and popularity baselines."
+      }
+    ],
+
+    github:
+      "https://github.com/basharfkhan/alexandria",
+
+    demo:
+      "https://alexandria-ashy.vercel.app"
+  },
+
+
+  /* ======================================================
+     PROJECT 02
+     DATA SCIENCE SALARY ESTIMATOR
+  ====================================================== */
+
+  {
+    number: "02",
 
     title: "Data Science Salary Estimator",
 
@@ -73,12 +150,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 02
+     PROJECT 03
      PATIENT READMISSION
   ====================================================== */
 
   {
-    number: "02",
+    number: "03",
 
     title:
       "Patient Readmission Prediction",
@@ -151,12 +228,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 03
+     PROJECT 04
      LAMBDA ARCHITECTURE
   ====================================================== */
 
   {
-    number: "03",
+    number: "04",
 
     title:
       "Banking System with Lambda Architecture",
@@ -223,12 +300,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 04
+     PROJECT 05
      MEDALLION ARCHITECTURE
   ====================================================== */
 
   {
-    number: "04",
+    number: "05",
 
     title:
       "Stock Market Data Processing",
@@ -295,12 +372,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 05
+     PROJECT 06
      WORLD LAYOFFS
   ====================================================== */
 
   {
-    number: "05",
+    number: "06",
 
     title:
       "World Layoffs Analysis",
