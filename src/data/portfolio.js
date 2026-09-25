@@ -27,7 +27,7 @@ export const projects = [
       "Trained BPR matrix factorization in PyTorch on 6M Goodreads ratings and embedded 10k books with sentence-transformers, tracking experiments in MLflow.",
       "Built a hybrid ranker that folds in a user vector from each new rating in under 1 ms, shifting from content-based to collaborative signals as feedback grows.",
       "Added a LightGBM LambdaMART second stage that reorders the top 200 candidates using signal agreement, author and series continuity, lifting NDCG@20 by 30%.",
-      "Served it through FastAPI with Postgres + pgvector, an LLM-powered onboarding chat, and a Next.js frontend, deployed with Docker and GitHub Actions CI.",
+      "Served it through FastAPI with Postgres + pgvector, a Claude-powered onboarding chat, and a Next.js frontend, deployed with Docker and GitHub Actions CI.",
       "Tuned serving hyper-parameters on a validation split, uncovering a popularity-bias failure that collapsed catalog coverage to 2%.",
       "Enriched 8,000+ books with Open Library descriptions, and added MMR diversity, an author cap, and explanations for every recommendation."
     ],
@@ -59,7 +59,7 @@ export const projects = [
       "TypeScript",
       "Docker",
       "MLflow",
-      "Anthropic API"
+      "Claude API"
     ],
 
     images: [
