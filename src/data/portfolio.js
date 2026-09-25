@@ -26,6 +26,7 @@ export const projects = [
     approach: [
       "Trained BPR matrix factorization in PyTorch on 6M Goodreads ratings and embedded 10k books with sentence-transformers, tracking experiments in MLflow.",
       "Built a hybrid ranker that folds in a user vector from each new rating in under 1 ms, shifting from content-based to collaborative signals as feedback grows.",
+      "Added a LightGBM LambdaMART second stage that reorders the top 200 candidates using signal agreement, author and series continuity, lifting NDCG@20 by 30%.",
       "Served it through FastAPI with Postgres + pgvector, a Claude-powered onboarding chat, and a Next.js frontend, deployed with Docker and GitHub Actions CI.",
       "Tuned serving hyper-parameters on a validation split, uncovering a popularity-bias failure that collapsed catalog coverage to 2%.",
       "Enriched 8,000+ books with Open Library descriptions, and added MMR diversity, an author cap, and explanations for every recommendation."
@@ -33,7 +34,7 @@ export const projects = [
 
     stats: [
       {
-        value: "+32%",
+        value: "+71%",
         label: "NDCG@20 vs Matrix Factorization"
       },
       {
@@ -43,13 +44,14 @@ export const projects = [
     ],
 
     highlights: [
-      "Served hybrid reaches NDCG@20 of 0.241, 2.7× a popularity baseline, while updating from new ratings instantly.",
-      "Beats the popularity baseline by 49% with only 5 known ratings, addressing cold start.",
+      "Two-stage ranking reaches NDCG@20 of 0.312, 3.5× a popularity baseline, while updating from new ratings instantly.",
+      "Beats the popularity baseline by 77% with only 5 known ratings, addressing cold start.",
       "Live on Vercel, Render, and Neon with CI covering unit, pipeline, and Postgres integration tests."
     ],
 
     technologies: [
       "PyTorch",
+      "LightGBM",
       "FastAPI",
       "PostgreSQL",
       "pgvector",
@@ -63,9 +65,9 @@ export const projects = [
     images: [
       {
         src: "/images/alexandria-results.png",
-        alt: "Bar chart of NDCG@20 by model: hybrid 0.241, BPR 0.183, hybrid with 5 ratings 0.133, popularity 0.089, content only 0.025",
+        alt: "Bar chart of NDCG@20 by model: two-stage 0.312, stage 1 hybrid 0.241, BPR 0.183, two-stage with 5 ratings 0.158, popularity 0.089",
         caption:
-          "Ranking quality on held-out Goodreads ratings. The served hybrid beats matrix factorization and popularity baselines."
+          "Ranking quality on held-out Goodreads ratings. A learned second-stage ranker adds 30% over the tuned hybrid."
       }
     ],
 
