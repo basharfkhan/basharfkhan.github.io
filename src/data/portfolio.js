@@ -83,11 +83,100 @@ export const projects = [
 
   /* ======================================================
      PROJECT 02
-     DATA SCIENCE SALARY ESTIMATOR
+     PCAS AIRCRAFT CONFLICT WARNING
   ====================================================== */
 
   {
     number: "02",
+
+    title:
+      "PCAS: Predictive Collision Awareness",
+
+    subtitle:
+      "Multi-Agent Transformer for Conflict Warning at Non-Towered Airports",
+
+    type:
+      "Deep Learning Project",
+
+    description:
+      "A learned conflict warning system for airports without a control tower, where most midair collisions happen and where certified collision avoidance is least useful. It predicts where every aircraft is going, then states a calibrated probability that two of them are about to lose separation.",
+
+    problem:
+      "TCAS II is carried mainly by airliners, not the trainers flying the pattern at non-towered fields, and it inhibits resolution advisories below roughly 1,000 ft AGL, which is exactly where those aircraft are. Its logic also assumes straight-line closure, so it cannot see a conflict that has not developed yet. The question was whether a model that has learned how traffic behaves at an airport can warn earlier without drowning pilots in false alarms.",
+
+    approach: [
+      "Built an ADS-B pipeline over 660 recording sessions from two research datasets: runway-relative coordinates, gap-aware track segmentation, and day-based splits, since the published benchmark's random split puts every day on both sides.",
+      "Established physics baselines and a TCAS-style closure-rate alerting baseline, then labelled every real loss of separation at 1 Hz to score warnings rather than trajectory error alone.",
+      "Trained a single-aircraft LSTM, then a multi-agent Transformer whose attention lets each aircraft see its neighbours in its own reference frame.",
+      "Ran the ablation that matters: with neighbours hidden, the same Transformer scores like the LSTM (2542 m vs 2539 m), so the entire gain is attributable to context rather than architecture.",
+      "Added six trajectory hypotheses per aircraft with probabilities, turning a yes/no alert into a conflict probability over hypothesis pairs, then calibrated it with isotonic regression fitted on held-out sessions.",
+      "Compared every method at matched false alarm rates by sweeping each one's own sensitivity knob, after an earlier comparison at mismatched rates produced a false negative."
+    ],
+
+    stats: [
+      {
+        value: "2.2×",
+        label: "Conflicts Caught 90s Ahead vs Kalman, Same False Alarm Rate"
+      },
+      {
+        value: "0.021 → 0.0005",
+        label: "Calibration Error After Isotonic Calibration"
+      }
+    ],
+
+    highlights: [
+      "Context beats capacity: 14× more parameters bought 0.8%, while letting the model see other aircraft bought 21%.",
+      "Detects 0.42 of conflicts arriving 30-60 s out at ~9 false alarms per hour, against 0.25 for a Kalman filter at the same budget, with median lead time 14 s against 3 s.",
+      "Reports where physics still wins: inside 30 s, and below about 2 false alarms per hour, the Kalman filter is the better alerting system.",
+      "172 tests and CI over a pipeline that survives six distinct defects in the distributed data, including archives that one common tool silently extracts as padding."
+    ],
+
+    technologies: [
+      "PyTorch",
+      "Transformers",
+      "NumPy",
+      "pandas",
+      "Matplotlib",
+      "pytest",
+      "GitHub Actions",
+      "ADS-B",
+      "VATSIM API"
+    ],
+
+    images: [
+      {
+        src: "/images/pcas-replay.gif",
+        alt: "Replay of recorded aircraft with predicted future paths and a conflict warning",
+        caption:
+          "Recorded traffic replayed with the model running: six possible futures per aircraft, weighted by probability, and a calibrated conflict warning when two are predicted to lose separation."
+      },
+      {
+        src: "/images/pcas-detection.png",
+        alt: "Conflicts detected 60 to 90 seconds ahead against false alarms, for four methods",
+        caption:
+          "Read at matched false alarm rates. Past about 30 seconds the social Transformer is the only method that keeps detecting; inside 30 seconds the physics baselines still win."
+      },
+      {
+        src: "/images/pcas-reliability.png",
+        alt: "Reliability curve of the stated conflict probability, before and after calibration",
+        caption:
+          "The stated probability was overconfident by 2-4x until it was calibrated on held-out sessions."
+      }
+    ],
+
+    github:
+      "https://github.com/basharfkhan/pcas",
+
+    demo: null
+  },
+
+  /* ======================================================
+     PROJECT 03
+     DATA SCIENCE SALARY ESTIMATOR
+  ====================================================== */
+
+  {
+    number: "03",
 
     title: "Data Science Salary Estimator",
 
@@ -154,12 +243,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 03
+     PROJECT 04
      PATIENT READMISSION
   ====================================================== */
 
   {
-    number: "03",
+    number: "04",
 
     title:
       "Patient Readmission Prediction",
@@ -232,12 +321,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 04
+     PROJECT 05
      LAMBDA ARCHITECTURE
   ====================================================== */
 
   {
-    number: "04",
+    number: "05",
 
     title:
       "Banking System with Lambda Architecture",
@@ -304,12 +393,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 05
+     PROJECT 06
      MEDALLION ARCHITECTURE
   ====================================================== */
 
   {
-    number: "05",
+    number: "06",
 
     title:
       "Stock Market Data Processing",
@@ -376,12 +465,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 06
+     PROJECT 07
      WORLD LAYOFFS
   ====================================================== */
 
   {
-    number: "06",
+    number: "07",
 
     title:
       "World Layoffs Analysis",
