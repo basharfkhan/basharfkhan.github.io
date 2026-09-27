@@ -52,8 +52,8 @@ function MobilePortfolio() {
 
         <h3>Data Engineering</h3>
         <p>
-          PySpark · Airflow · Kafka · BigQuery · Parquet · PostGIS ·
-          GeoPandas · Medallion &amp; Lambda architectures
+          PySpark · Airflow · Kafka · BigQuery · Parquet ·
+          Medallion &amp; Lambda architectures
         </p>
 
         <h3>Serving &amp; Infrastructure</h3>

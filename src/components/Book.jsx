@@ -273,7 +273,7 @@ function Book() {
             </h3>
 
             <p>
-                PySpark · Airflow · Kafka · BigQuery · PostGIS ·
+                PySpark · Airflow · Kafka · BigQuery ·
                 FastAPI · Docker · GitHub Actions · AWS
             </p>
 
