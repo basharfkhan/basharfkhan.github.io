@@ -26,28 +26,30 @@ export const projects = [
     approach: [
       "Trained BPR matrix factorization in PyTorch on 6M Goodreads ratings and embedded a 12,220-book catalog with sentence-transformers, tracking experiments in MLflow.",
       "Built a hybrid ranker that folds in a user vector from each new rating in under 1 ms, shifting from content-based to collaborative signals as feedback grows.",
-      "Added a LightGBM LambdaMART second stage that reorders the top 200 candidates using signal agreement, author and series continuity, lifting NDCG@20 by 29%.",
+      "Added a LightGBM LambdaMART second stage that reorders the top 200 candidates using signal agreement, author and series continuity, lifting NDCG@20 by 29% offline.",
       "Served it through FastAPI with Postgres + pgvector, a Claude-powered onboarding chat, and a Next.js frontend, deployed with Docker and GitHub Actions CI.",
       "Tuned serving hyper-parameters on a validation split, uncovering a popularity-bias failure that collapsed catalog coverage to 2%.",
       "Enriched 9,500+ books with Open Library descriptions, and added MMR diversity, an author cap, and explanations for every recommendation.",
       "Extended a ratings set that stops in 2017 with 2,220 newer titles, projecting each one into the collaborative space from its nearest rated neighbours so books with no ratings at all, like Project Hail Mary, are still recommendable.",
-      "Automated weekly retraining behind a promotion gate that compares four metrics against the live model, catching a popularity-drift regression that accuracy alone would have hidden."
+      "Automated weekly retraining behind a promotion gate that compares four metrics against the live model, catching a popularity-drift regression that accuracy alone would have hidden.",
+      "Pre-registered and ran a randomized experiment on the shipped ranker, committing the hypothesis, primary metric, guardrails, power analysis and stopping rule before collecting any data, then tested it across 600 replayed readers split into disjoint arms."
     ],
 
     stats: [
       {
         value: "+70%",
-        label: "NDCG@20 vs Matrix Factorization"
+        label: "NDCG@20 vs Matrix Factorization (Offline)"
       },
       {
-        value: "2% → 44%",
-        label: "Catalog Coverage After Tuning"
+        value: "+7.3%",
+        label: "Online Lift, 95% CI [-2.6%, +17.2%]"
       }
     ],
 
     highlights: [
       "Two-stage ranking reaches NDCG@20 of 0.309, 3.5× a popularity baseline, while updating from new ratings instantly.",
       "Beats the popularity baseline by 80% with only 5 known ratings, addressing cold start.",
+      "A randomized test of my own shipped feature failed to reproduce its offline gain: the online confidence interval excludes an effect the size NDCG@20 implied, and the reranker measurably increased bestseller concentration. The conclusion was that NDCG@20 is not a trustworthy proxy for reader benefit in this system.",
       "Live on Vercel, Render, and Neon with CI covering unit, pipeline, and Postgres integration tests."
     ],
 
@@ -61,6 +63,7 @@ export const projects = [
       "TypeScript",
       "Docker",
       "MLflow",
+      "A/B Testing",
       "Claude API"
     ],
 
@@ -69,7 +72,7 @@ export const projects = [
         src: "/images/alexandria-results.png",
         alt: "Bar chart of NDCG@20 by model: two-stage 0.309, stage 1 hybrid 0.225, BPR 0.182, two-stage with 5 ratings 0.160, popularity 0.089",
         caption:
-          "Ranking quality on held-out Goodreads ratings. A learned second-stage ranker adds 29% over the tuned hybrid."
+          "Ranking quality on held-out Goodreads ratings. The learned second stage adds 29% over the tuned hybrid offline, a gain a later randomized online test could not reproduce."
       }
     ],
 
