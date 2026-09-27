@@ -214,23 +214,20 @@ function Book() {
 
              <p>
                 I'm a Data Science graduate student at Rochester
-                Institute of Technology interested in Machine Learning and AI.
-                I enjoy building systems that turn raw data into 
-                useful predictions, pipelines, and analytical products.
+                Institute of Technology, interested in machine learning
+                and AI. I enjoy building systems that turn raw data into
+                useful predictions and analytical products.
              </p>
 
              <p>
-                My interests span machine learning, data engineering,
-                databases, AI engineering, and data visualization.
-                I particularly enjoy projects where I can work across the
-                full lifecycle, from collecting and cleaning data to
-                modeling, deployment, and communicating results.
+                I like working across the full lifecycle: collecting and
+                cleaning the data, modelling, deployment, and being
+                careful about what the results actually support.
              </p>
 
              <p>
-                I'm currently looking for opportunities where I can apply
-                these skills to real-world data problems while continuing
-                to grow as a Data Scientist and Machine Learning Engineer.
+                I'm looking for Data Scientist and Machine Learning
+                Engineer roles.
              </p>
 
             </BookPage>
