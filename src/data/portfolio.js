@@ -260,34 +260,35 @@ export const projects = [
       "Machine Learning Project",
 
     description:
-      "A machine learning workflow for predicting hospital readmission using clinical and encounter-level patient data.",
+      "A classification study on 100k hospital encounters that ends in a negative result: on this data, with these features, the models cannot usefully identify who will be readmitted within 30 days. The interesting part is why the headline accuracy hides that.",
 
     problem:
-      "Hospital readmissions can represent significant healthcare costs and may indicate opportunities for improved patient follow-up. This project explores whether patient and encounter characteristics can help identify patients at higher risk of readmission.",
+      "Readmission within 30 days is costly and often preventable, so predicting it is a standard clinical ML task. It is also severely imbalanced: only 11.2% of encounters end in one. That imbalance is what makes accuracy the wrong thing to look at, and it is the trap this project walked into before walking back out.",
 
     approach: [
-      "Explored and prepared patient records from the diabetes readmission dataset.",
-      "Handled missing data and transformed categorical variables for machine learning.",
-      "Compared several classification algorithms including Random Forest and XGBoost.",
-      "Applied model tuning and evaluated predictive performance.",
-      "Examined feature importance to understand variables associated with readmission risk."
+      "Prepared 101,766 encounters from the UCI diabetes readmission dataset: dropped columns over 40% missing, imputed the rest, and encoded categorical clinical fields.",
+      "Compared five classifiers, including Random Forest, XGBoost and a Decision Tree, and applied SMOTE to rebalance the training set.",
+      "Scored them on recall, precision and F1 for the minority class rather than on accuracy alone, and compared against the majority-class baseline.",
+      "Read the confusion matrices, which is where the result became clear: the tree ensembles had collapsed onto the majority class despite the resampling.",
+      "Used feature importance to check which clinical variables the models leaned on."
     ],
 
     stats: [
       {
-        value: "5",
-        label: "Models Compared"
+        value: "4%",
+        label: "Of Readmissions Actually Caught By XGBoost"
       },
       {
-        value: "4",
-        label: "Evaluation Metrics"
+        value: "88.8%",
+        label: "Accuracy Of Predicting Nobody Is Readmitted"
       }
     ],
 
     highlights: [
-      "Compared multiple machine learning classifiers on the same clinical prediction problem.",
-      "Random Forest and XGBoost produced strong overall results.",
-      "Used feature-importance analysis to better understand influential clinical variables."
+      "The headline accuracy is a mirage: XGBoost and Random Forest score 0.89, while always answering 'not readmitted' scores 0.888 on the same split.",
+      "On the class that matters they recall 0.04 and 0.03 of readmissions at F1 of 0.08 and 0.05, so the apparent performance is the base rate rather than skill.",
+      "SMOTE balanced the training set without fixing the test-time behaviour, which is a useful thing to have seen rather than read about.",
+      "The Decision Tree trades accuracy for recall (0.19 recall at 0.79 accuracy), which is the direction a clinical screening tool would want, and a reminder to pick the metric from the decision being made."
     ],
 
     technologies: [
@@ -303,7 +304,7 @@ export const projects = [
         src: "/images/model-eval.png",
         alt: "Model performance comparison for hospital readmission prediction",
         caption:
-          "Accuracy comparison across the machine learning models evaluated."
+          "Accuracy across the models evaluated. Every bar sits near the 88.8% that predicting 'not readmitted' for everyone would score, which is the point."
       },
       {
         src: "/images/feature-importance-xgb.png",

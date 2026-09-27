@@ -41,13 +41,32 @@ function MobilePortfolio() {
         <h2>Skills</h2>
 
         <h3>Languages</h3>
-        <p>Python · SQL · Java · JavaScript · R</p>
+        <p>Python · SQL · Java · JavaScript · TypeScript · R</p>
+
+        <h3>Machine Learning</h3>
+        <p>
+          PyTorch · Transformers &amp; attention · LSTMs · Multimodal
+          prediction · Probability calibration · scikit-learn · XGBoost ·
+          LightGBM · sentence-transformers · MLflow
+        </p>
+
+        <h3>Data Engineering</h3>
+        <p>
+          PySpark · Airflow · Kafka · BigQuery · Parquet · PostGIS ·
+          GeoPandas · Medallion &amp; Lambda architectures
+        </p>
+
+        <h3>Serving &amp; Infrastructure</h3>
+        <p>
+          FastAPI · Flask · Docker · GitHub Actions CI · pytest · Next.js ·
+          React · AWS
+        </p>
 
         <h3>Databases</h3>
-        <p>MySQL · MongoDB · Neo4j · Cassandra · Redis</p>
+        <p>PostgreSQL + pgvector · MySQL · MongoDB · Neo4j · Cassandra · Redis</p>
 
-        <h3>Tools</h3>
-        <p>Git · Docker · Kafka · Flask · Tableau · Power BI · AWS</p>
+        <h3>Analysis &amp; Visualisation</h3>
+        <p>pandas · NumPy · Matplotlib · Tableau · Power BI</p>
       </section>
 
 

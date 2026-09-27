@@ -258,13 +258,26 @@ function Book() {
             </h3>
 
             <p>
-                <strong>Proficient:</strong>{" "}
-                Python · SQL · Java
+                Python · SQL · Java · JavaScript · TypeScript · R
             </p>
 
+            <h3>
+                Machine Learning
+            </h3>
+
             <p>
-                <strong>Familiar:</strong>{" "}
-                JavaScript · R
+                PyTorch · Transformers · LSTMs · Multimodal
+                prediction · Calibration · scikit-learn ·
+                XGBoost · LightGBM · MLflow
+            </p>
+
+            <h3>
+                Data &amp; Infrastructure
+            </h3>
+
+            <p>
+                PySpark · Airflow · Kafka · BigQuery · PostGIS ·
+                FastAPI · Docker · GitHub Actions · AWS
             </p>
 
             <h3>
@@ -272,16 +285,7 @@ function Book() {
             </h3>
 
             <p>
-                MySQL · MongoDB · Neo4j · Cassandra · Redis
-            </p>
-
-            <h3>
-                Tools
-            </h3>
-
-            <p>
-                Git · Docker · Kafka · Flask · Tableau ·
-                Power BI · AWS
+                PostgreSQL + pgvector · MySQL · MongoDB · Redis
             </p>
 
             </BookPage>
