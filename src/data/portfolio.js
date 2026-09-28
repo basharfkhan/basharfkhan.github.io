@@ -113,7 +113,8 @@ export const projects = [
       "Trained a single-aircraft LSTM, then a multi-agent Transformer whose attention lets each aircraft see its neighbours in its own reference frame.",
       "Ran the ablation that matters: with neighbours hidden, the same Transformer scores like the LSTM (2542 m vs 2539 m), so the entire gain is attributable to context rather than architecture.",
       "Added six trajectory hypotheses per aircraft with probabilities, turning a yes/no alert into a conflict probability over hypothesis pairs, then calibrated it with isotonic regression fitted on held-out sessions.",
-      "Compared every method at matched false alarm rates by sweeping each one's own sensitivity knob, after an earlier comparison at mismatched rates produced a false negative."
+      "Compared every method at matched false alarm rates by sweeping each one's own sensitivity knob, after an earlier comparison at mismatched rates produced a false negative.",
+      "Split the held-out error by flight phase and by how many aircraft were nearby, which turned the ablation into a test of the explanation rather than of the result."
     ],
 
     stats: [
@@ -129,9 +130,11 @@ export const projects = [
 
     highlights: [
       "Context beats capacity: 14× more parameters bought 0.8%, while letting the model see other aircraft bought 21%.",
+      "The advantage exists only where the mechanism can work: the social gain is -0.8% when an aircraft has no neighbours to attend to, and 41% to 53% as soon as it has one or more.",
       "Detects 0.42 of conflicts arriving 30-60 s out at ~9 false alarms per hour, against 0.25 for a Kalman filter at the same budget, with median lead time 14 s against 3 s.",
-      "Reports where physics still wins: inside 30 s, and below about 2 false alarms per hour, the Kalman filter is the better alerting system.",
-      "172 tests and CI over a pipeline that survives six distinct defects in the distributed data, including archives that one common tool silently extracts as padding."
+      "Beats a Kalman filter by 61% to 76% in pattern turns, final approach and the circuit, and loses to it by 3% to 19% in transit, climb and descent, so a real system should choose by phase.",
+      "Reports what it misses: conflicts it fails to catch arrive at a median 68 s ahead against 15 s for the ones it catches, and two pathological failure modes are documented rather than filtered away.",
+      "181 tests and CI over a pipeline that survives six distinct defects in the distributed data, including archives that one common tool silently extracts as padding."
     ],
 
     technologies: [
@@ -158,6 +161,12 @@ export const projects = [
         alt: "Conflicts detected 60 to 90 seconds ahead against false alarms, for four methods",
         caption:
           "Read at matched false alarm rates. Past about 30 seconds the social Transformer is the only method that keeps detecting; inside 30 seconds the physics baselines still win."
+      },
+      {
+        src: "/images/pcas-phase.png",
+        alt: "Median prediction error by flight phase for three methods",
+        caption:
+          "The model earns its place in the circuit, not in cruise: it beats a Kalman filter by 61% to 76% where aircraft manoeuvre, and loses to it where they fly straight."
       },
       {
         src: "/images/pcas-reliability.png",
