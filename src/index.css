@@ -329,6 +329,36 @@ a {
 }
 
 
+/* Case-study pages carry figures, statistics and takeaways, which together run past a
+   fixed-height page. The page cannot grow, so it scrolls instead: clipping silently hid
+   the results half of every long entry. Flipping is driven by the page corners and the
+   Previous/Next controls, so an inner scroll does not compete with it. */
+
+.project-detail-page .page-content {
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(151, 118, 62, 0.4) transparent;
+
+  overscroll-behavior: contain;
+}
+
+
+.project-detail-page .page-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+
+.project-detail-page .page-content::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+
+  background:
+    rgba(151, 118, 62, 0.4);
+}
+
+
 /* =========================================================
    TYPOGRAPHY
 ========================================================= */

@@ -114,7 +114,8 @@ export const projects = [
       "Ran the ablation that matters: with neighbours hidden, the same Transformer scores like the LSTM (2542 m vs 2539 m), so the entire gain is attributable to context rather than architecture.",
       "Added six trajectory hypotheses per aircraft with probabilities, turning a yes/no alert into a conflict probability over hypothesis pairs, then calibrated it with isotonic regression fitted on held-out sessions.",
       "Compared every method at matched false alarm rates by sweeping each one's own sensitivity knob, after an earlier comparison at mismatched rates produced a false negative.",
-      "Split the held-out error by flight phase and by how many aircraft were nearby, which turned the ablation into a test of the explanation rather than of the result."
+      "Split the held-out error by flight phase and by how many aircraft were nearby, which turned the ablation into a test of the explanation rather than of the result.",
+      "Tested the premise itself on 77 hours of live network data I collected: whether close convergences are more frequent with no controller online, comparing within the same airport, traffic level and hour, and checking the pooling against a placebo of shuffled staffing labels."
     ],
 
     stats: [
@@ -134,7 +135,8 @@ export const projects = [
       "Detects 0.42 of conflicts arriving 30-60 s out at ~9 false alarms per hour, against 0.25 for a Kalman filter at the same budget, with median lead time 14 s against 3 s.",
       "Beats a Kalman filter by 61% to 76% in pattern turns, final approach and the circuit, and loses to it by 3% to 19% in transit, climb and descent, so a real system should choose by phase.",
       "Reports what it misses: conflicts it fails to catch arrive at a median 68 s ahead against 15 s for the ones it catches, and two pathological failure modes are documented rather than filtered away.",
-      "181 tests and CI over a pipeline that survives six distinct defects in the distributed data, including archives that one common tool silently extracts as padding."
+      "Tested the premise the project rests on: at the same airport, traffic level and hour, aircraft come within a mile of each other about 3× as often with no tower online, and the effect fades as the separation gate widens, exactly as the mechanism predicts.",
+      "198 tests and CI over a pipeline that survives six distinct defects in the distributed data, including archives that one common tool silently extracts as padding."
     ],
 
     technologies: [
@@ -167,6 +169,12 @@ export const projects = [
         alt: "Median prediction error by flight phase for three methods",
         caption:
           "The model earns its place in the circuit, not in cruise: it beats a Kalman filter by 61% to 76% where aircraft manoeuvre, and loses to it where they fly straight."
+      },
+      {
+        src: "/images/pcas-controller.png",
+        alt: "Close-pair rates with and without a tower online, across five separation gates",
+        caption:
+          "Does a controller's presence matter? Within the same field, traffic level and hour, close convergences are about three times more frequent with nobody watching, and the gap closes as the gate widens."
       },
       {
         src: "/images/pcas-reliability.png",
