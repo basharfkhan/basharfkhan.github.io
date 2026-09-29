@@ -111,11 +111,11 @@ export const projects = [
       "Built an ADS-B pipeline over 660 recording sessions from two research datasets: runway-relative coordinates, gap-aware track segmentation, and day-based splits, since the published benchmark's random split puts every day on both sides.",
       "Established physics baselines and a TCAS-style closure-rate alerting baseline, then labelled every real loss of separation at 1 Hz to score warnings rather than trajectory error alone.",
       "Trained a single-aircraft LSTM, then a multi-agent Transformer whose attention lets each aircraft see its neighbours in its own reference frame.",
-      "Ran the ablation that matters: with neighbours hidden, the same Transformer scores like the LSTM (2542 m vs 2539 m), so the entire gain is attributable to context rather than architecture.",
+      "Hid the neighbours from the same Transformer and it scored like the LSTM (2542 m vs 2539 m), which puts the gain down to context rather than architecture.",
       "Added six trajectory hypotheses per aircraft with probabilities, turning a yes/no alert into a conflict probability over hypothesis pairs, then calibrated it with isotonic regression fitted on held-out sessions.",
       "Compared every method at matched false alarm rates by sweeping each one's own sensitivity knob, after an earlier comparison at mismatched rates produced a false negative.",
-      "Split the held-out error by flight phase and by how many aircraft were nearby, which turned the ablation into a test of the explanation rather than of the result.",
-      "Tested the premise itself on 77 hours of live network data I collected: whether close convergences are more frequent with no controller online, comparing within the same airport, traffic level and hour, and checking the pooling against a placebo of shuffled staffing labels."
+      "Split the held-out error by flight phase and by how many aircraft were nearby, so the explanation could be checked against the cases where it should not hold.",
+      "Collected 77 hours of live network data and measured whether close convergences are more frequent with no controller online, comparing within the same airport, traffic level and hour, and re-running the whole comparison on shuffled staffing labels as a placebo."
     ],
 
     stats: [
@@ -130,12 +130,12 @@ export const projects = [
     ],
 
     highlights: [
-      "Context beats capacity: 14× more parameters bought 0.8%, while letting the model see other aircraft bought 21%.",
-      "The advantage exists only where the mechanism can work: the social gain is -0.8% when an aircraft has no neighbours to attend to, and 41% to 53% as soon as it has one or more.",
+      "More context helped where more capacity did not: 14× more parameters bought 0.8%, while letting the model see other aircraft bought 21%.",
+      "The social gain is -0.8% when an aircraft has no neighbours to attend to, and 41% to 53% as soon as it has one or more.",
       "Detects 0.42 of conflicts arriving 30-60 s out at ~9 false alarms per hour, against 0.25 for a Kalman filter at the same budget, with median lead time 14 s against 3 s.",
       "Beats a Kalman filter by 61% to 76% in pattern turns, final approach and the circuit, and loses to it by 3% to 19% in transit, climb and descent, so a real system should choose by phase.",
-      "Reports what it misses: conflicts it fails to catch arrive at a median 68 s ahead against 15 s for the ones it catches, and two pathological failure modes are documented rather than filtered away.",
-      "Tested the premise the project rests on: at the same airport, traffic level and hour, aircraft come within a mile of each other about 3× as often with no tower online, and the effect fades as the separation gate widens, exactly as the mechanism predicts.",
+      "Conflicts the model misses arrive at a median 68 s ahead, against 15 s for the ones it catches, and two failure modes that produce absurd trajectories are written up rather than filtered out.",
+      "At the same airport, traffic level and hour, aircraft come within a mile of each other about 3× as often with no tower online, on 77 hours of live network data. The gap narrows as the separation gate widens, which is what a controller's influence should look like.",
       "198 tests and CI over a pipeline that survives six distinct defects in the distributed data, including archives that one common tool silently extracts as padding."
     ],
 
@@ -168,13 +168,13 @@ export const projects = [
         src: "/images/pcas-phase.png",
         alt: "Median prediction error by flight phase for three methods",
         caption:
-          "The model earns its place in the circuit, not in cruise: it beats a Kalman filter by 61% to 76% where aircraft manoeuvre, and loses to it where they fly straight."
+          "The model beats a Kalman filter by 61% to 76% where aircraft manoeuvre, and loses to it by 3% to 19% where they fly straight."
       },
       {
         src: "/images/pcas-controller.png",
         alt: "Close-pair rates with and without a tower online, across five separation gates",
         caption:
-          "Does a controller's presence matter? Within the same field, traffic level and hour, close convergences are about three times more frequent with nobody watching, and the gap closes as the gate widens."
+          "Within the same field, traffic level and hour, close convergences are about three times more frequent with no tower online. The gap narrows as the separation gate widens."
       },
       {
         src: "/images/pcas-reliability.png",
@@ -305,10 +305,10 @@ export const projects = [
     ],
 
     highlights: [
-      "The headline accuracy is a mirage: XGBoost and Random Forest score 0.89, while always answering 'not readmitted' scores 0.888 on the same split.",
-      "On the class that matters they recall 0.04 and 0.03 of readmissions at F1 of 0.08 and 0.05, so the apparent performance is the base rate rather than skill.",
-      "SMOTE balanced the training set without fixing the test-time behaviour, which is a useful thing to have seen rather than read about.",
-      "The Decision Tree trades accuracy for recall (0.19 recall at 0.79 accuracy), which is the direction a clinical screening tool would want, and a reminder to pick the metric from the decision being made."
+      "XGBoost and Random Forest score 0.89 accuracy, while always answering 'not readmitted' scores 0.888 on the same split.",
+      "On readmissions themselves they recall 0.04 and 0.03, at F1 of 0.08 and 0.05, so the accuracy is the base rate rather than skill.",
+      "SMOTE balanced the training set but did not change behaviour on the held-out data.",
+      "The Decision Tree trades accuracy for recall (0.19 recall at 0.79 accuracy), which is the direction a clinical screening tool would want."
     ],
 
     technologies: [
@@ -324,7 +324,7 @@ export const projects = [
         src: "/images/model-eval.png",
         alt: "Model performance comparison for hospital readmission prediction",
         caption:
-          "Accuracy across the models evaluated. Every bar sits near the 88.8% that predicting 'not readmitted' for everyone would score, which is the point."
+          "Accuracy across the models evaluated. Every bar sits near the 88.8% that predicting 'not readmitted' for everyone would score, so the accuracy figure carries almost no information."
       },
       {
         src: "/images/feature-importance-xgb.png",
