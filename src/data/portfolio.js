@@ -21,12 +21,12 @@ export const projects = [
       "A deployed, end-to-end book recommendation system that personalizes instantly as readers rate books, combining collaborative filtering, text embeddings, and an LLM onboarding librarian.",
 
     problem:
-      "New readers have no history, and retraining a model every time someone rates a book is impractical. The goal was a recommender that gives good picks from a few genres or favorite books, then adapts in real time as feedback arrives, like a streaming feed.",
+      "New readers have no history, and retraining after every rating is impractical. The goal was a recommender that works from a few favorite books, then adapts in real time as feedback arrives.",
 
     approach: [
-      "Trained BPR matrix factorization in PyTorch on 6M Goodreads ratings and embedded a 12,220-book catalog with sentence-transformers, tracking experiments in MLflow.",
-      "Built a hybrid ranker that folds in a user vector from each new rating in under 1 ms, shifting from content-based to collaborative signals as feedback grows.",
-      "Added a LightGBM LambdaMART second stage that reorders the top 200 candidates using signal agreement, author and series continuity, lifting NDCG@20 by 29% offline.",
+      "Trained BPR matrix factorization in PyTorch on 6M Goodreads ratings and embedded a 12,220-book catalog with sentence-transformers.",
+      "Built a hybrid ranker that folds in a user vector from each new rating in under 1 ms, shifting from content to collaborative signals as feedback grows.",
+      "Added a LightGBM LambdaMART second stage that reorders the top 200 candidates, lifting NDCG@20 by 29% offline.",
       "Served it through FastAPI with Postgres + pgvector, a Claude-powered onboarding chat, and a Next.js frontend, deployed with Docker and GitHub Actions CI.",
       "Tuned serving hyper-parameters on a validation split, uncovering a popularity-bias failure that collapsed catalog coverage to 2%.",
       "Enriched 9,500+ books with Open Library descriptions, and added MMR diversity, an author cap, and explanations for every recommendation.",
@@ -96,7 +96,7 @@ export const projects = [
       "PCAS: Predictive Collision Awareness",
 
     subtitle:
-      "Multi-Agent Transformer for Conflict Warning at Non-Towered Airports",
+      "Multi-Agent Transformer for Conflict Warning",
 
     type:
       "Deep Learning Project",
@@ -105,12 +105,12 @@ export const projects = [
       "A learned conflict warning system for airports without a control tower, where most midair collisions happen and where certified collision avoidance is least useful. It predicts where every aircraft is going, then states a calibrated probability that two of them are about to lose separation.",
 
     problem:
-      "TCAS II is carried mainly by airliners, not the trainers flying the pattern at non-towered fields, and it inhibits resolution advisories below roughly 1,000 ft AGL, which is exactly where those aircraft are. Its logic also assumes straight-line closure, so it cannot see a conflict that has not developed yet. The question was whether a model that has learned how traffic behaves at an airport can warn earlier without drowning pilots in false alarms.",
+      "TCAS II is carried mainly by airliners, not the trainers flying the pattern at non-towered fields, and it inhibits advisories below roughly 1,000 ft AGL, where those aircraft fly. It also assumes straight-line closure, so it cannot see a conflict that has not developed.",
 
     approach: [
-      "Built an ADS-B pipeline over 660 recording sessions from two research datasets: runway-relative coordinates, gap-aware track segmentation, and day-based splits, since the published benchmark's random split puts every day on both sides.",
-      "Established physics baselines and a TCAS-style closure-rate alerting baseline, then labelled every real loss of separation at 1 Hz to score warnings rather than trajectory error alone.",
-      "Trained a single-aircraft LSTM, then a multi-agent Transformer whose attention lets each aircraft see its neighbours in its own reference frame.",
+      "Built an ADS-B pipeline over 660 recording sessions: runway-relative coordinates, gap-aware segmentation, and day-based splits, since the published benchmark's random split leaks days across both.",
+      "Added physics and TCAS-style closure-rate baselines, then labelled every real loss of separation at 1 Hz.",
+      "Trained a single-aircraft LSTM, then a multi-agent Transformer with social attention.",
       "Hid the neighbours from the same Transformer and it scored like the LSTM (2542 m vs 2539 m), which puts the gain down to context rather than architecture.",
       "Added six trajectory hypotheses per aircraft with probabilities, turning a yes/no alert into a conflict probability over hypothesis pairs, then calibrated it with isotonic regression fitted on held-out sessions.",
       "Compared every method at matched false alarm rates by sweeping each one's own sensitivity knob, after an earlier comparison at mismatched rates produced a false negative.",
