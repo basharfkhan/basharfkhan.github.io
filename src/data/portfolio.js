@@ -115,7 +115,7 @@ export const projects = [
       "Added six trajectory hypotheses per aircraft with probabilities, turning a yes/no alert into a conflict probability over hypothesis pairs, then calibrated it with isotonic regression fitted on held-out sessions.",
       "Compared every method at matched false alarm rates by sweeping each one's own sensitivity knob, after an earlier comparison at mismatched rates produced a false negative.",
       "Split the held-out error by flight phase and by how many aircraft were nearby, so the explanation could be checked against the cases where it should not hold.",
-      "Collected 77 hours of live network data and measured whether close convergences are more frequent with no controller online, comparing within the same airport, traffic level and hour, and re-running the whole comparison on shuffled staffing labels as a placebo."
+      "Collected 79 hours of live network data and measured whether close convergences are more frequent with no controller online, comparing within the same airport, traffic level and hour, and re-running the whole comparison on shuffled staffing labels as a placebo."
     ],
 
     stats: [
@@ -135,7 +135,7 @@ export const projects = [
       "Detects 0.42 of conflicts arriving 30-60 s out at ~9 false alarms per hour, against 0.25 for a Kalman filter at the same budget, with median lead time 14 s against 3 s.",
       "Beats a Kalman filter by 61% to 76% in pattern turns, final approach and the circuit, and loses to it by 3% to 19% in transit, climb and descent, so a real system should choose by phase.",
       "Conflicts the model misses arrive at a median 68 s ahead, against 15 s for the ones it catches, and two failure modes that produce absurd trajectories are written up rather than filtered out.",
-      "At the same airport, traffic level and hour, aircraft come within a mile of each other about 3× as often with no tower online, on 77 hours of live network data. The gap narrows as the separation gate widens, which is what a controller's influence should look like.",
+      "At the same airport, traffic level and hour, aircraft come within a mile of each other about 3× as often with no tower online, on 79 hours of live network data. The gap narrows as the separation gate widens, which is what a controller's influence should look like.",
       "198 tests and CI over a pipeline that survives six distinct defects in the distributed data, including archives that one common tool silently extracts as padding."
     ],
 
