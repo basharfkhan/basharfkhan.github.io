@@ -31,7 +31,8 @@ export const projects = [
       "Tuned serving hyper-parameters on a validation split, uncovering a popularity-bias failure that collapsed catalog coverage to 2%.",
       "Enriched 9,500+ books with Open Library descriptions, and added MMR diversity, an author cap, and explanations for every recommendation.",
       "Extended a ratings set that stops in 2017 with 2,220 newer titles, projecting each one into the collaborative space from its nearest rated neighbours so books with no ratings at all, like Project Hail Mary, are still recommendable.",
-      "Automated weekly retraining behind a promotion gate that compares four metrics against the live model, catching a popularity-drift regression that accuracy alone would have hidden.",
+      "Automated weekly retraining behind a promotion gate that compares four metrics against both the live model and a pinned reference, so a run of individually tolerable 2% losses cannot compound into a 17% one unnoticed.",
+      "Added drift monitoring that needs no production traffic: ten synthetic readers defined by books they loved are re-scored every retrain, and the overlap, popularity percentile and genre mix of what they are shown is compared against the live model, catching a model that holds its accuracy while changing what everyone sees.",
       "Pre-registered and ran a randomized experiment on the shipped ranker, committing the hypothesis, primary metric, guardrails, power analysis and stopping rule before collecting any data, then tested it across 600 replayed readers split into disjoint arms."
     ],
 
@@ -49,6 +50,7 @@ export const projects = [
     highlights: [
       "Two-stage ranking reaches NDCG@20 of 0.309, 3.5× a popularity baseline, while updating from new ratings instantly.",
       "Beats the popularity baseline by 80% with only 5 known ratings, addressing cold start.",
+      "Drift monitoring reproduces the failure it was built for: a candidate with byte-identical NDCG@20 trips three warnings because its probe readers keep only 10% of their recommendations and its lists moved 15% more popular.",
       "A randomized test of my own shipped feature failed to reproduce its offline gain: the online confidence interval excludes an effect the size NDCG@20 implied, and the reranker measurably increased bestseller concentration. The conclusion was that NDCG@20 is not a trustworthy proxy for reader benefit in this system.",
       "Live on Vercel, Render, and Neon with CI covering unit, pipeline, and Postgres integration tests."
     ],
