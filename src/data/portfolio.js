@@ -194,11 +194,93 @@ export const projects = [
 
   /* ======================================================
      PROJECT 03
-     DATA SCIENCE SALARY ESTIMATOR
+     LORE SPACEFLIGHT PRE-MORTEM AGENT
   ====================================================== */
 
   {
     number: "03",
+
+    title:
+      "LORE: Lessons and Outcomes Retrieval Engine",
+
+    subtitle:
+      "Spaceflight Pre-Mortem Agent Over NASA's Lessons Learned",
+
+    type:
+      "Deployed AI Engineering Project",
+
+    description:
+      "A deployed agent that takes a description of a spacecraft system or operation and returns the past failures most like it, with what the investigators recommended and a link to every source. It searches 2,117 NASA lessons and 17 mishap investigation reports, from Apollo 1 to Glory.",
+
+    problem:
+      "NASA records what went wrong on past missions, but engineers have to find those lessons while designing. The one that matters is usually about different hardware that failed the same way, which keyword search does not connect.",
+
+    approach: [
+      "Built a searchable archive of 2,117 NASA lessons and 17 mishap reports, running OCR only on the pages that needed it.",
+      "Had Claude generate failure hypotheses and search once per hypothesis, because dense retrieval matched topic, not failure mechanism.",
+      "Tested it on 13 obscure incidents the model cannot recall, because it recognised all five famous test cases.",
+      "Recovered rotated pages in the scanned reports by detecting their orientation, including the touchdown-sensor logic behind the Mars Polar Lander board's probable cause.",
+      "Replaced reciprocal rank fusion with round-robin interleaving after fusion buried the specific precedent under generic documents.",
+      "Replaced a vague 0 to 2 relevance scale, on which three graders gave three different answers, with two yes or no questions per incident, graded the disputed documents myself, and validated an LLM judge against those answers.",
+      "Built the product as a tool-using agent with search and read tools, and audit every link in an answer against the documents the agent retrieved in that conversation.",
+      "Ran the same question through Haiku, Sonnet and Opus, and chose Sonnet after Haiku added advice that was not in the sources.",
+      "Deployed it as one FastAPI service with streaming progress, a daily spend cap kept in Postgres, and pre-computed examples that cost nothing to view."
+    ],
+
+    stats: [
+      {
+        value: "5 of 7",
+        label: "Held-Out Incidents With the Right Precedent in the Top 30, vs 2 of 7 for Keyword, Dense or Hybrid Search"
+      },
+      {
+        value: "0.78",
+        label: "LLM Judge Agreement With My Grading (Weighted Kappa), Up From 0.57"
+      }
+    ],
+
+    highlights: [
+      "On incidents the model cannot recall, hypothesis-driven search found the lesson describing the same failure for 5 of 7, and for 3 of the 4 hard ones where plain keyword search found none. Seven is a small sample, and the write-up says so.",
+      "The contamination check changed the evaluation: an anonymised paragraph was enough for the model to name Mars Observer, Cassini and the Mars rovers, which ruled out 43 of 56 candidate incidents.",
+      "Found two lessons in NASA's database dated before the mishaps they describe, which would have leaked answers into the test, and added a check that scans for more.",
+      "For 6 of the 13 held-out incidents the archive holds no precedent at all, so no search method could have warned about them.",
+      "A typical live answer makes 4 to 8 searches, reads 5 to 9 documents and costs about 8 cents. The whole evaluation cost about $26 in API calls."
+    ],
+
+    technologies: [
+      "Claude API",
+      "Tool Use",
+      "RAG",
+      "LLM Evaluation",
+      "BM25",
+      "FastAPI",
+      "PostgreSQL",
+      "Tesseract OCR"
+    ],
+
+    images: [
+      {
+        src: "/images/lore-heldout.png",
+        alt: "Bar chart of held-out incidents with a direct precedent in the top 30: keyword 2 of 7, dense 2 of 7, hybrid 2 of 7, hypotheses plus keyword 5 of 7, hypotheses plus hybrid 5 of 7",
+        caption:
+          "Incidents where the lesson describing the same failure appears in the top 30 results. Searching by generated failure hypotheses finds it for 5 of 7, against 2 of 7 for the other methods."
+      }
+    ],
+
+    github:
+      "https://github.com/basharfkhan/lore",
+
+    demo:
+      "https://lore-yy66.onrender.com"
+  },
+
+
+  /* ======================================================
+     PROJECT 04
+     DATA SCIENCE SALARY ESTIMATOR
+  ====================================================== */
+
+  {
+    number: "04",
 
     title: "Data Science Salary Estimator",
 
@@ -265,12 +347,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 04
+     PROJECT 05
      PATIENT READMISSION
   ====================================================== */
 
   {
-    number: "04",
+    number: "05",
 
     title:
       "Patient Readmission Prediction",
@@ -344,12 +426,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 05
+     PROJECT 06
      LAMBDA ARCHITECTURE
   ====================================================== */
 
   {
-    number: "05",
+    number: "06",
 
     title:
       "Banking System with Lambda Architecture",
@@ -416,12 +498,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 06
+     PROJECT 07
      MEDALLION ARCHITECTURE
   ====================================================== */
 
   {
-    number: "06",
+    number: "07",
 
     title:
       "Stock Market Data Processing",
@@ -488,12 +570,12 @@ export const projects = [
 
 
   /* ======================================================
-     PROJECT 07
+     PROJECT 08
      WORLD LAYOFFS
   ====================================================== */
 
   {
-    number: "07",
+    number: "08",
 
     title:
       "World Layoffs Analysis",

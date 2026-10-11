@@ -13,7 +13,7 @@ function MobilePortfolio() {
           Farooq Khan
         </h1>
 
-        <h2>Data Scientist</h2>
+        <h2>AI/ML Engineer &amp; Data Scientist</h2>
 
         <span>
           Machine Learning · Data Engineering · Analytics
@@ -48,6 +48,13 @@ function MobilePortfolio() {
           PyTorch · Transformers &amp; attention · LSTMs · Multimodal
           prediction · Probability calibration · scikit-learn · XGBoost ·
           LightGBM · sentence-transformers · MLflow
+        </p>
+
+        <h3>LLMs &amp; Agents</h3>
+        <p>
+          Claude API · Tool-using agents · RAG · BM25, dense &amp; hybrid
+          retrieval · LLM-as-judge evaluation · Held-out test design ·
+          Prompt design · Tesseract OCR
         </p>
 
         <h3>Data Engineering</h3>

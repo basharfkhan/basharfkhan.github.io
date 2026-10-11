@@ -177,7 +177,7 @@ function Book() {
                     <div className="cover-line" />
 
                     <h2>
-                    Data Scientist
+                    AI/ML Engineer &amp; Data Scientist
                     </h2>
 
                     <p>
@@ -226,8 +226,8 @@ function Book() {
              </p>
 
              <p>
-                I'm looking for Data Scientist and Machine Learning
-                Engineer roles.
+                I'm looking for AI/ML Engineer and Data Scientist
+                roles.
              </p>
 
             </BookPage>
@@ -266,6 +266,15 @@ function Book() {
                 PyTorch · Transformers · LSTMs · Multimodal
                 prediction · Calibration · scikit-learn ·
                 XGBoost · LightGBM · MLflow
+            </p>
+
+            <h3>
+                LLMs &amp; Agents
+            </h3>
+
+            <p>
+                Claude API · Tool-using agents · RAG ·
+                BM25 &amp; hybrid retrieval · LLM evaluation
             </p>
 
             <h3>
