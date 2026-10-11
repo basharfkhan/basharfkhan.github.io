@@ -181,7 +181,7 @@ function Book() {
                     </h2>
 
                     <p>
-                    Machine Learning • Data Engineering • Analytics
+                    Machine Learning • LLM Systems • Data Engineering
                     </p>
 
                 </div>

@@ -16,7 +16,7 @@ function MobilePortfolio() {
         <h2>AI/ML Engineer &amp; Data Scientist</h2>
 
         <span>
-          Machine Learning · Data Engineering · Analytics
+          Machine Learning · LLM Systems · Data Engineering
         </span>
       </section>
 
