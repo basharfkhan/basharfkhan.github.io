@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
 import BookPage from "./BookPage";
+import AppendixEntry from "./AppendixEntry";
 import { projects } from "../data/portfolio";
 
 function Book() {
@@ -8,18 +9,64 @@ function Book() {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(
-    6 + projects.length * 2
+    10 + projects.filter((p) => p.featured).length * 2
   );
 
+  // Flagship projects get a full two-page chapter;
+  // everything else is listed compactly in the appendix.
+  const chapters = projects.filter((p) => p.featured);
+  const appendix = projects.filter((p) => !p.featured);
+  const appendixSplit = Math.ceil(appendix.length / 2);
+  const appendixPages = [
+    appendix.slice(0, appendixSplit),
+    appendix.slice(appendixSplit),
+  ];
+
   // Important page locations
+  // 0 cover · 1 ex libris · 2 contents · 3 about · 4 skills
+  // 5+ chapters (2 pages each) · appendix (2 pages) · education
+  // · leadership · back cover
+  const afterChapters = 5 + chapters.length * 2;
   const pageIndex = {
     home: 0,
-    about: 1,
-    projects: 3,
-    education: 3 + projects.length * 2,
-    leadership: 4 + projects.length * 2,
-    contact: 5 + projects.length * 2,
+    contents: 2,
+    about: 3,
+    skills: 4,
+    projects: 5,
+    appendix: afterChapters,
+    education: afterChapters + 2,
+    leadership: afterChapters + 3,
+    contact: afterChapters + 4,
   };
+
+  const contents = [
+    {
+      group: "Front Matter",
+      entries: [
+        { label: "About", page: pageIndex.about },
+        { label: "Skills", page: pageIndex.skills },
+      ],
+    },
+    {
+      group: "Selected Work",
+      entries: chapters.map((project, i) => ({
+        numeral: project.number,
+        label: project.title.split(":")[0],
+        page: pageIndex.projects + i * 2,
+      })),
+    },
+    {
+      group: "Back Matter",
+      entries: [
+        { label: "Appendix: Further Work", page: pageIndex.appendix },
+        { label: "Education", page: pageIndex.education },
+        { label: "Leadership", page: pageIndex.leadership },
+        { label: "Contact", page: pageIndex.contact },
+      ],
+    },
+  ];
+
+  const pageLabel = (page) => String(page + 1).padStart(2, "0");
 
   const goToPage = (page) => {
     const pageFlip = book.current?.pageFlip();
@@ -45,10 +92,18 @@ function Book() {
     if (page === 0) return "COVER";
 
     if (page <= 2) {
+      return "CONTENTS";
+    }
+
+    if (page <= pageIndex.skills) {
       return "ABOUT · SKILLS";
     }
 
-    if (page >= pageIndex.projects && page < pageIndex.education) {
+    if (page >= pageIndex.appendix && page < pageIndex.education) {
+      return "APPENDIX";
+    }
+
+    if (page >= pageIndex.projects && page < pageIndex.appendix) {
       const projectPageOffset = page - pageIndex.projects;
       const projectNumber = Math.floor(projectPageOffset / 2) + 1;
 
@@ -82,6 +137,12 @@ function Book() {
         </button>
 
         <div className="nav-links">
+
+          <button
+            onClick={() => goToPage(pageIndex.contents)}
+          >
+            Contents
+          </button>
 
           <button
             onClick={() => goToPage(pageIndex.about)}
@@ -196,6 +257,104 @@ function Book() {
 
 
             {/* ========================
+                EX LIBRIS (inside cover)
+            ======================== */}
+            <BookPage className="endpaper">
+
+              <div className="ex-libris">
+
+                <span className="ex-libris-label">
+                  Ex Libris
+                </span>
+
+                <div className="ex-libris-rule" />
+
+                <h2>
+                  Bashar Farooq Khan
+                </h2>
+
+                <p>
+                  Selected work in machine learning, LLM systems
+                  and data engineering.
+                </p>
+
+                <span className="ex-libris-meta">
+                  basharkhan.dev
+                </span>
+
+              </div>
+
+            </BookPage>
+
+
+            {/* ========================
+                CONTENTS
+            ======================== */}
+            <BookPage className="contents-page">
+
+              <p className="eyebrow">
+                Contents
+              </p>
+
+              <h2>
+                In This Volume
+              </h2>
+
+              {contents.map((section) => (
+
+                <div
+                  className="contents-section"
+                  key={section.group}
+                >
+
+                  <span className="contents-group">
+                    {section.group}
+                  </span>
+
+                  <ul className="contents-list">
+
+                    {section.entries.map((entry) => (
+
+                      <li key={entry.label}>
+
+                        <button
+                          className="contents-entry"
+                          onClick={() => goToPage(entry.page)}
+                        >
+
+                          <span className="contents-numeral">
+                            {entry.numeral || ""}
+                          </span>
+
+                          <span className="contents-label">
+                            {entry.label}
+                          </span>
+
+                          <span
+                            className="contents-dots"
+                            aria-hidden="true"
+                          />
+
+                          <span className="contents-page-number">
+                            {pageLabel(entry.page)}
+                          </span>
+
+                        </button>
+
+                      </li>
+
+                    ))}
+
+                  </ul>
+
+                </div>
+
+              ))}
+
+            </BookPage>
+
+
+            {/* ========================
                 ABOUT
             ======================== */}
             <BookPage>
@@ -300,7 +459,7 @@ function Book() {
             {/* ========================
                 PROJECTS
             ======================== */}
-            {projects.flatMap((project) => [
+            {chapters.flatMap((project) => [
 
               /* ======================================================
                 LEFT PAGE — PROJECT OVERVIEW
@@ -505,6 +664,47 @@ function Book() {
               </BookPage>, 
 
             ])}
+
+
+            {/* ========================
+                APPENDIX (two pages)
+            ======================== */}
+            {appendixPages.map((items, pageNo) => (
+
+              <BookPage
+                key={`appendix-${pageNo}`}
+                className="appendix-page"
+              >
+
+                <p className="eyebrow">
+                  {pageNo === 0 ? "Appendix" : "Appendix · Continued"}
+                </p>
+
+                {pageNo === 0 && (
+                  <>
+                    <h2>
+                      Further Work
+                    </h2>
+
+                    <p className="appendix-intro">
+                      Smaller projects in modelling, data engineering
+                      and analysis.
+                    </p>
+                  </>
+                )}
+
+                {items.map((project) => (
+
+                  <AppendixEntry
+                    key={project.number}
+                    project={project}
+                  />
+
+                ))}
+
+              </BookPage>
+
+            ))}
 
 
             {/* ========================

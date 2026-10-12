@@ -1847,3 +1847,241 @@ a {
     display: none;
   }
 }
+
+/* =========================================================
+   EX LIBRIS (inside front cover)
+========================================================= */
+
+.endpaper {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(23, 53, 45, 0.09) 1px, transparent 0) 0 0 / 14px 14px,
+    var(--paper);
+}
+
+.endpaper .page-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ex-libris {
+  width: 74%;
+  padding: 40px 28px;
+
+  border: 1px solid var(--gold);
+  outline: 1px solid var(--gold);
+  outline-offset: 5px;
+
+  background: var(--paper-light);
+
+  text-align: center;
+}
+
+.ex-libris-label {
+  color: var(--burgundy);
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+}
+
+.ex-libris-rule {
+  width: 48px;
+  height: 1px;
+  margin: 14px auto 18px;
+
+  background: var(--gold);
+}
+
+.book-page .ex-libris h2 {
+  margin: 0 0 14px;
+
+  font-size: 2.1rem;
+  line-height: 1.02;
+}
+
+.book-page .ex-libris p {
+  margin: 0 0 18px;
+
+  font-size: 0.9rem;
+}
+
+.ex-libris-meta {
+  color: var(--ink-soft);
+
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+
+/* =========================================================
+   CONTENTS
+========================================================= */
+
+.contents-section {
+  margin-top: 14px;
+}
+
+.contents-group {
+  display: block;
+  margin-bottom: 2px;
+
+  color: var(--burgundy);
+
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.19em;
+}
+
+.contents-list {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.contents-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+
+  width: 100%;
+  padding: 3px 0;
+
+  border: 0;
+  background: none;
+
+  color: var(--ink);
+  cursor: pointer;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.12rem;
+  text-align: left;
+}
+
+/* Keep clicks on the button itself so the page doesn't flip instead */
+.contents-entry > span {
+  pointer-events: none;
+}
+
+.contents-entry:hover .contents-label,
+.contents-entry:hover .contents-page-number {
+  color: var(--burgundy);
+}
+
+.contents-entry:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.contents-numeral {
+  flex: 0 0 22px;
+
+  color: var(--gold);
+
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.contents-dots {
+  flex: 1;
+
+  border-bottom: 1px dotted rgba(65, 48, 30, 0.38);
+  transform: translateY(-4px);
+}
+
+.contents-page-number {
+  color: var(--ink-soft);
+
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   APPENDIX (shared by the book and the phone layout)
+========================================================= */
+
+.book-page p.appendix-intro,
+.appendix-intro {
+  margin: 0 0 6px;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.05rem;
+  font-style: italic;
+}
+
+.appendix-entry {
+  display: flex;
+  gap: 16px;
+
+  padding: 16px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.appendix-entry:last-child {
+  border-bottom: 0;
+}
+
+.appendix-number {
+  flex: 0 0 26px;
+
+  color: var(--gold);
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.appendix-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.book-page .appendix-entry h3,
+.appendix-entry h3 {
+  margin: 0 0 2px;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.book-page p.appendix-subtitle,
+.appendix-subtitle {
+  margin: 0 0 6px;
+
+  color: var(--burgundy);
+
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.book-page p.appendix-tech,
+.appendix-tech {
+  margin: 0 0 6px;
+
+  color: var(--ink-soft);
+
+  font-size: 0.76rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.appendix-entry a {
+  color: var(--ink);
+
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  border-bottom: 1px solid var(--gold);
+}
+
+.appendix-entry a:hover {
+  color: var(--burgundy);
+}

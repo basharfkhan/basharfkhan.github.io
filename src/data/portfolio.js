@@ -8,6 +8,8 @@ export const projects = [
   {
     number: "01",
 
+    featured: true,
+
     title:
       "Alexandria: Book Recommender",
 
@@ -93,6 +95,8 @@ export const projects = [
 
   {
     number: "02",
+
+    featured: true,
 
     title:
       "PCAS: Predictive Collision Awareness",
@@ -199,6 +203,8 @@ export const projects = [
 
   {
     number: "03",
+
+    featured: true,
 
     title:
       "LORE: Lessons and Outcomes Retrieval Engine",

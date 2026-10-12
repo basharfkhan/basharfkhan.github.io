@@ -1,4 +1,5 @@
 import { projects } from "../data/portfolio";
+import AppendixEntry from "./AppendixEntry";
 
 function MobilePortfolio() {
   return (
@@ -77,7 +78,7 @@ function MobilePortfolio() {
       </section>
 
 
-      {projects.map((project) => (
+      {projects.filter((project) => project.featured).map((project) => (
         <section
           className="mobile-project"
           key={project.number}
@@ -149,6 +150,26 @@ function MobilePortfolio() {
           </div>
         </section>
       ))}
+
+
+      <section className="mobile-appendix">
+        <p className="eyebrow">Appendix</p>
+
+        <h2>Further Work</h2>
+
+        <p className="appendix-intro">
+          Smaller projects in modelling, data engineering and analysis.
+        </p>
+
+        {projects
+          .filter((project) => !project.featured)
+          .map((project) => (
+            <AppendixEntry
+              key={project.number}
+              project={project}
+            />
+          ))}
+      </section>
 
 
       <section>
