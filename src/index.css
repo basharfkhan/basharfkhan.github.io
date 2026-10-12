@@ -2222,3 +2222,16 @@ a {
   line-height: 0.8;
 }
 
+
+
+/* "Chapter I" line above each featured project's title */
+.book-page p.chapter-label {
+  margin: 4px 0 -4px;
+
+  color: var(--burgundy);
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.2;
+}

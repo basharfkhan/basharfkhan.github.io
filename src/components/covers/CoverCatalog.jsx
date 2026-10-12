@@ -12,7 +12,7 @@ function CoverCatalog({ chapters, appendixCount, onOpen }) {
     },
     {
       label: "Contents",
-      value: `${chapters.length} featured projects (${chapters.join(", ")}), plus ${appendixCount} more in the appendix`,
+      value: `${chapters.length} chapters (${chapters.join(", ")}), plus ${appendixCount} more projects in the appendix`,
     },
     {
       label: "Subjects",

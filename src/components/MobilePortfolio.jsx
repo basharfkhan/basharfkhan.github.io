@@ -1,5 +1,6 @@
 import { projects } from "../data/portfolio";
 import AppendixEntry from "./AppendixEntry";
+import { toRoman } from "./roman";
 import CoverCatalog from "./covers/CoverCatalog";
 
 function MobilePortfolio() {
@@ -77,17 +78,17 @@ function MobilePortfolio() {
       </section>
 
 
-      {projects.filter((project) => project.featured).map((project) => (
+      {featured.map((project, chapterIndex) => (
         <section
           className="mobile-project"
           id={`project-${project.number}`}
           key={project.number}
         >
           <span className="project-number">
-            {project.number}
+            {toRoman(chapterIndex + 1)}
           </span>
 
-          <p className="eyebrow">Project</p>
+          <p className="eyebrow">Chapter {toRoman(chapterIndex + 1)}</p>
 
           <h2>{project.title}</h2>
 

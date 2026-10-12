@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
 import BookPage from "./BookPage";
 import AppendixEntry from "./AppendixEntry";
+import { toRoman } from "./roman";
 import CoverCatalog from "./covers/CoverCatalog";
 import { projects } from "../data/portfolio";
 
@@ -51,7 +52,7 @@ function Book() {
     {
       group: "Selected Work",
       entries: chapters.map((project, i) => ({
-        numeral: project.number,
+        numeral: toRoman(i + 1),
         label: project.title.split(":")[0],
         page: pageIndex.projects + i * 2,
       })),
@@ -109,7 +110,7 @@ function Book() {
       const projectPageOffset = page - pageIndex.projects;
       const projectNumber = Math.floor(projectPageOffset / 2) + 1;
 
-      return `PROJECT ${String(projectNumber).padStart(2, "0")}`;
+      return `CHAPTER ${toRoman(projectNumber)}`;
     }
 
     if (page === pageIndex.education) {
@@ -436,7 +437,7 @@ function Book() {
             {/* ========================
                 PROJECTS
             ======================== */}
-            {chapters.flatMap((project) => [
+            {chapters.flatMap((project, chapterIndex) => [
 
               /* ======================================================
                 LEFT PAGE — PROJECT OVERVIEW
@@ -448,11 +449,15 @@ function Book() {
               >
 
                 <span className="page-number">
-                  {project.number}
+                  {toRoman(chapterIndex + 1)}
                 </span>
 
                 <p className="eyebrow">
                   {project.type}
+                </p>
+
+                <p className="chapter-label">
+                  Chapter {toRoman(chapterIndex + 1)}
                 </p>
 
                 <h2>
@@ -470,7 +475,7 @@ function Book() {
                     The Problem
                   </span>
 
-                  <p>
+                  <p className="drop-cap">
                     {project.problem}
                   </p>
 
@@ -523,7 +528,7 @@ function Book() {
               >
 
                 <p className="eyebrow">
-                  Project {project.number} · Case Study
+                  Chapter {toRoman(chapterIndex + 1)} · Case Study
                 </p>
 
                 <h2>
