@@ -2574,3 +2574,8 @@ a {
     border-color: var(--gold);
   }
 }
+
+/* Keep a skill's chapter numerals together on one line */
+.index-refs {
+  white-space: nowrap;
+}

@@ -744,15 +744,17 @@ function Book() {
                             {entry.name}
                           </span>
 
-                          {entry.refs.map((ref) => (
-                            <button
-                              key={ref.label}
-                              className="index-ref"
-                              onClick={() => goToPage(refPage(ref.target))}
-                            >
-                              {ref.label}
-                            </button>
-                          ))}
+                          <span className="index-refs">
+                            {entry.refs.map((ref) => (
+                              <button
+                                key={ref.label}
+                                className="index-ref"
+                                onClick={() => goToPage(refPage(ref.target))}
+                              >
+                                {ref.label}
+                              </button>
+                            ))}
+                          </span>
 
                         </li>
 

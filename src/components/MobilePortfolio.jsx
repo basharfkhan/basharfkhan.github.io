@@ -173,21 +173,23 @@ function MobilePortfolio() {
                   <li key={entry.name}>
                     <span className="index-term">{entry.name}</span>
 
-                    {entry.refs.map((ref) => (
-                      <button
-                        key={ref.label}
-                        className="index-ref"
-                        onClick={() =>
-                          scrollTo(
-                            ref.target.type === "chapter"
-                              ? `project-${featured[ref.target.index].number}`
-                              : "further-work"
-                          )
-                        }
-                      >
-                        {ref.label}
-                      </button>
-                    ))}
+                    <span className="index-refs">
+                      {entry.refs.map((ref) => (
+                        <button
+                          key={ref.label}
+                          className="index-ref"
+                          onClick={() =>
+                            scrollTo(
+                              ref.target.type === "chapter"
+                                ? `project-${featured[ref.target.index].number}`
+                                : "further-work"
+                            )
+                          }
+                        >
+                          {ref.label}
+                        </button>
+                      ))}
+                    </span>
                   </li>
                 ))}
               </ul>
