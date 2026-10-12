@@ -4,11 +4,17 @@ import BookPage from "./BookPage";
 import AppendixEntry from "./AppendixEntry";
 import { toRoman } from "./roman";
 import CoverCatalog from "./covers/CoverCatalog";
+import { useBookScale } from "./useBookScale";
 import { projects } from "../data/portfolio";
 import { buildSkillIndex } from "../data/skillsIndex";
 
 function Book() {
   const book = useRef();
+  const stageRef = useRef(null);
+  const navRef = useRef(null);
+  const controlsRef = useRef(null);
+
+  const { scale, fitHeight } = useBookScale(stageRef, navRef, controlsRef);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(
@@ -138,7 +144,7 @@ function Book() {
       {/* ========================
           NAVIGATION
       ======================== */}
-      <nav className="book-nav">
+      <nav className="book-nav" ref={navRef}>
 
         <button
           className="nav-brand"
@@ -200,6 +206,15 @@ function Book() {
           BOOK
       ======================== */}
       <div
+        className="book-fit"
+        style={fitHeight ? { height: `${fitHeight}px` } : undefined}
+      >
+      <div
+        className="book-fit-inner"
+        style={{ transform: `scale(${scale})` }}
+      >
+      <div
+        ref={stageRef}
         className={`book-stage ${
             currentPage === 0
             ? "front-cover-view"
@@ -360,7 +375,8 @@ function Book() {
              </p>
 
              <h2>
-                Turning data into decisions.
+                Recommenders, sequence models, and retrieval
+                systems in production.
              </h2>
 
              <p className="drop-cap">
@@ -413,6 +429,9 @@ function Book() {
 
                 <div className="education-focus">
                   <span>Machine Learning</span>
+                  <span>Deep Learning</span>
+                  <span>Transformers</span>
+                  <span>NLP</span>
                   <span>Data Engineering</span>
                   <span>Statistics</span>
                   <span>Databases</span>
@@ -911,12 +930,14 @@ function Book() {
 
         </HTMLFlipBook>
       </div>
+      </div>
+      </div>
 
 
       {/* ========================
           BOTTOM PAGE CONTROLS
       ======================== */}
-      <div className="book-controls">
+      <div className="book-controls" ref={controlsRef}>
 
         <button
           className="page-button"

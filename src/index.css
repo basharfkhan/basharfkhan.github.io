@@ -199,6 +199,46 @@ a {
    BOOK STAGE
 ========================================================= */
 
+/*
+  The book renders at a fixed size, so .book-fit scales the whole spread to
+  whatever the window can actually show. Its height is set from JS to the
+  scaled height, because a transform leaves the layout box at full size and
+  would otherwise reserve space the book is no longer using.
+*/
+
+.book-fit {
+  position: relative;
+
+  width: 100%;
+}
+
+
+/*
+  Absolutely positioned so the height above never reaches the flipbook. In
+  normal flow a constrained ancestor makes it re-stretch smaller, which changes
+  the measurement the scale was derived from.
+*/
+
+.book-fit-inner {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+
+  transform-origin: top center;
+
+  /*
+    Deliberately not transitioned. The wrapper height updates immediately while
+    an animated transform lags behind it, so the book overflows its box for the
+    length of the animation.
+  */
+}
+
+
 .book-stage {
   width: min(1200px, 94vw);
 
