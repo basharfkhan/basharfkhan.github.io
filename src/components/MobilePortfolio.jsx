@@ -1,4 +1,5 @@
 import { projects } from "../data/portfolio";
+import { buildSkillIndex } from "../data/skillsIndex";
 import AppendixEntry from "./AppendixEntry";
 import { toRoman } from "./roman";
 import CoverCatalog from "./covers/CoverCatalog";
@@ -36,46 +37,19 @@ function MobilePortfolio() {
       </section>
 
 
-      <section>
-        <p className="eyebrow">Technical Toolkit</p>
+      <section id="education">
+        <p className="eyebrow">Education</p>
 
-        <h2>Skills</h2>
+        <h2>Rochester Institute of Technology</h2>
+        <p>Master of Science in Data Science</p>
 
-        <h3>Languages</h3>
-        <p>Python · SQL · Java · JavaScript · TypeScript · R</p>
-
-        <h3>Machine Learning</h3>
-        <p>
-          PyTorch · Transformers &amp; attention · LSTMs · Multimodal
-          prediction · Probability calibration · scikit-learn · XGBoost ·
-          LightGBM · sentence-transformers · MLflow
-        </p>
-
-        <h3>LLMs &amp; Agents</h3>
-        <p>
-          Claude API · Tool-using agents · RAG · BM25, dense &amp; hybrid
-          retrieval · LLM-as-judge evaluation · Held-out test design ·
-          Prompt design · Tesseract OCR
-        </p>
-
-        <h3>Data Engineering</h3>
-        <p>
-          PySpark · Airflow · Kafka · BigQuery · Parquet ·
-          Medallion &amp; Lambda architectures
-        </p>
-
-        <h3>Serving &amp; Infrastructure</h3>
-        <p>
-          FastAPI · Flask · Docker · GitHub Actions CI · pytest · Next.js ·
-          React · AWS
-        </p>
-
-        <h3>Databases</h3>
-        <p>PostgreSQL + pgvector · MySQL · MongoDB · Neo4j · Cassandra · Redis</p>
-
-        <h3>Analysis &amp; Visualisation</h3>
-        <p>pandas · NumPy · Matplotlib · Tableau · Power BI</p>
+        <h2>
+          Maulana Azad National Institute of Technology
+        </h2>
+        <p>Bachelor's in Electrical Engineering</p>
       </section>
+
+
 
 
       {featured.map((project, chapterIndex) => (
@@ -96,7 +70,7 @@ function MobilePortfolio() {
 
           <p className="drop-cap">{project.description}</p>
 
-          {project.images?.map((image) => (
+          {project.images?.map((image, imageIndex) => (
             <figure
               className="mobile-project-image"
               key={image.src}
@@ -108,11 +82,12 @@ function MobilePortfolio() {
                 loading="lazy"
               />
 
-              {image.caption && (
-                <figcaption>
-                  {image.caption}
-                </figcaption>
-              )}
+              <figcaption>
+                <span className="fig-label">
+                  Fig. {toRoman(chapterIndex + 1)}.{imageIndex + 1}
+                </span>
+                {image.caption}
+              </figcaption>
 
             </figure>
           ))}
@@ -173,23 +148,63 @@ function MobilePortfolio() {
       </section>
 
 
-      <section>
-        <p className="eyebrow">Education</p>
 
-        <h2>Rochester Institute of Technology</h2>
-        <p>Master of Science in Data Science</p>
 
-        <h2>
-          Maulana Azad National Institute of Technology
-        </h2>
-        <p>Bachelor's in Electrical Engineering</p>
+      <section className="mobile-index" id="skills">
+        <p className="eyebrow">Index</p>
+
+        <h2>Index of Skills</h2>
+
+        <p className="index-key">
+          Numerals refer to chapters
+          {featured.map((project, i) => (
+            ` · ${toRoman(i + 1)} ${project.title.split(":")[0]}`
+          ))}
+          {" · A appendix"}
+        </p>
+
+        <div className="index-columns">
+          {buildSkillIndex(projects, toRoman).map((group) => (
+            <div className="index-group" key={group.letter}>
+              <span className="index-letter">{group.letter}</span>
+
+              <ul>
+                {group.entries.map((entry) => (
+                  <li key={entry.name}>
+                    <span className="index-term">{entry.name}</span>
+
+                    {entry.refs.map((ref) => (
+                      <button
+                        key={ref.label}
+                        className="index-ref"
+                        onClick={() =>
+                          scrollTo(
+                            ref.target.type === "chapter"
+                              ? `project-${featured[ref.target.index].number}`
+                              : "further-work"
+                          )
+                        }
+                      >
+                        {ref.label}
+                      </button>
+                    ))}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </section>
 
 
       <section className="mobile-contact">
-        <p className="eyebrow">Contact</p>
+        <p className="eyebrow">Correspondence</p>
 
-        <h2>Let's build something.</h2>
+        <h2>Thanks for reading.</h2>
+
+        <p className="correspondence-note">
+          Open to AI/ML Engineer and Data Scientist roles. Write to the author:
+        </p>
 
         <a href="mailto:Bashar28nov@gmail.com">
           Email
@@ -202,6 +217,13 @@ function MobilePortfolio() {
         <a href="https://www.linkedin.com/in/basharfarooqkhan/">
           LinkedIn
         </a>
+
+        <p className="colophon">
+          <span>Colophon</span>
+          Set in Cormorant Garamond and Inter, with Courier Prime on the
+          catalog card. Designed and built by the author with React and
+          Vite, and published on GitHub Pages.
+        </p>
       </section>
 
     </main>

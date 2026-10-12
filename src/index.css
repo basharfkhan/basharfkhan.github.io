@@ -15,7 +15,7 @@
 
   /* Text */
   --ink: #29231c;
-  --ink-soft: #675d50;
+  --ink-soft: #51473b;
 
   /* Cover */
   --cover: #17352d;
@@ -24,10 +24,27 @@
 
   /* Accents */
   --gold: #c5a45e;
-  --gold-soft: #dbc58f;
+  --gold-soft: #e6d3a3;
   --burgundy: #713f3c;
 
   --border: rgba(69, 52, 32, 0.18);
+
+  /* Book cloth: flat green with a faint linen weave, no glow */
+  --cloth:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.025) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.06) 0 1px,
+      transparent 1px 3px
+    ),
+    var(--cover);
+
+  /* Tone of the page around figures, so chart whites print as paper */
+  --figure-paper: #f7f0df;
 }
 
 
@@ -2234,4 +2251,326 @@ a {
   font-size: 1.3rem;
   font-style: italic;
   line-height: 1.2;
+}
+
+
+/* =========================================================
+   INDEX OF SKILLS
+   Alphabetical; each skill links to the chapters that use it.
+========================================================= */
+
+.book-page p.index-key,
+.index-key {
+  margin: 0 0 14px;
+
+  color: var(--ink-soft);
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.index-columns {
+  columns: 2;
+  column-gap: 26px;
+}
+
+.index-group {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 6px;
+
+  margin-bottom: 7px;
+
+  break-inside: avoid;
+}
+
+.index-letter {
+  color: var(--burgundy);
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.index-group ul {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.index-group li {
+  color: var(--ink);
+
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.index-term {
+  margin-right: 5px;
+}
+
+.index-ref {
+  padding: 0 1px;
+
+  border: 0;
+  background: none;
+
+  color: var(--burgundy);
+  cursor: pointer;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.86rem;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.index-ref + .index-ref::before {
+  content: ", ";
+
+  color: var(--ink-soft);
+}
+
+.index-ref:hover {
+  text-decoration: underline;
+}
+
+.index-ref:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+@media (max-width: 768px) {
+  .index-group li {
+    font-size: 0.86rem;
+  }
+
+  .index-ref {
+    min-height: 28px;
+    font-size: 1rem;
+  }
+}
+
+
+/* =========================================================
+   BACK COVER: CORRESPONDENCE & COLOPHON
+========================================================= */
+
+.back-cover .page-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-page.back-cover p.correspondence-note,
+.correspondence-note {
+  margin: 0 0 18px;
+
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.book-page.back-cover p.correspondence-note {
+  color: rgba(245, 237, 216, 0.82);
+}
+
+.book-page p.colophon,
+.colophon {
+  margin: 0;
+  padding-top: 14px;
+
+  border-top: 1px solid rgba(197, 164, 94, 0.35);
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.book-page.back-cover p.colophon {
+  color: rgba(245, 237, 216, 0.72);
+}
+
+.colophon span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--gold-soft);
+
+  font-family: Inter, sans-serif;
+  font-size: 0.62rem;
+  font-style: normal;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.mobile-contact .colophon {
+  margin-top: 36px;
+}
+
+@media (max-width: 768px) {
+  .mobile-portfolio .mobile-contact .eyebrow {
+    color: var(--gold-soft) !important;
+  }
+
+  .mobile-portfolio .mobile-contact p.correspondence-note {
+    color: rgba(245, 237, 216, 0.85);
+  }
+
+  .mobile-portfolio .mobile-contact p.colophon {
+    color: rgba(245, 237, 216, 0.75);
+    font-size: 0.95rem;
+  }
+}
+
+
+/* =========================================================
+   FIGURES PRINTED ON THE PAGE
+   No card or shadow: the chart sits on the paper between
+   printer's rules, and white backgrounds take the paper's tone.
+========================================================= */
+
+.project-image-wrapper,
+.mobile-portfolio .mobile-project-image {
+  padding: 10px 0 8px;
+
+  border: 0;
+  border-top: 1px solid rgba(41, 35, 28, 0.55);
+  border-bottom: 1px solid rgba(41, 35, 28, 0.22);
+
+  /* Each page's content is its own layer, so the chart blends
+     against this paper tone rather than the page behind it. */
+  background: var(--figure-paper);
+  box-shadow: none;
+}
+
+.project-image,
+.mobile-project-image img {
+  mix-blend-mode: multiply;
+
+  filter: sepia(0.12) saturate(0.88) contrast(0.97);
+}
+
+.fig-label {
+  margin-right: 5px;
+
+  color: var(--burgundy);
+
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* Index page: compact setting so all entries fit one page,
+   with the same inner scroll as case-study pages as a fallback. */
+.index-page .page-content {
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(151, 118, 62, 0.4) transparent;
+
+  overscroll-behavior: contain;
+}
+
+.book-page.index-page h2 {
+  margin-bottom: 10px;
+}
+
+.book-page.index-page p.index-key {
+  margin-bottom: 10px;
+}
+
+.index-page .index-columns {
+  column-gap: 22px;
+}
+
+.index-page .index-group {
+  margin-bottom: 3px;
+}
+
+.index-page .index-letter {
+  font-size: 0.86rem;
+  line-height: 1.3;
+}
+
+.index-page .index-group li {
+  font-size: 0.7rem;
+  line-height: 1.36;
+}
+
+.index-page .index-ref {
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+
+
+
+/* =========================================================
+   COLOR ROLES
+   One job per color:
+   green  = covers and key highlights (numbers, links, subtitles)
+   gold   = buttons and ornaments (rules, bullets, numerals)
+   burgundy = small labels only (eyebrows, section and figure labels)
+   cream  = the pages
+========================================================= */
+
+/* Covers: flat cloth instead of a lit gradient */
+.cover,
+.back-cover {
+  background: var(--cloth);
+}
+
+@media (max-width: 768px) {
+  .mobile-hero,
+  .mobile-portfolio .mobile-contact {
+    background: var(--cloth) !important;
+  }
+}
+
+/* Key highlights in green */
+.project-subtitle,
+.project-stat strong,
+.project-links a,
+.contents-entry:hover .contents-label,
+.contents-entry:hover .contents-page-number,
+.appendix-entry a:hover,
+.index-ref {
+  color: var(--cover);
+}
+
+.project-links a:hover {
+  color: #fff8e6;
+  background: var(--cover);
+}
+
+.appendix-subtitle {
+  color: var(--ink-soft);
+}
+
+/* Ornaments in gold */
+.project-highlights li::marker {
+  color: var(--gold);
+}
+
+@media (max-width: 768px) {
+  .project-number {
+    color: var(--gold) !important;
+  }
+
+  .mobile-project-links a {
+    color: var(--cover);
+  }
+
+  /* Buttons are gold */
+  .mobile-project-links a.primary {
+    color: var(--cover-dark);
+    background: var(--gold);
+    border-color: var(--gold);
+  }
 }

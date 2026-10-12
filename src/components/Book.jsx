@@ -5,6 +5,7 @@ import AppendixEntry from "./AppendixEntry";
 import { toRoman } from "./roman";
 import CoverCatalog from "./covers/CoverCatalog";
 import { projects } from "../data/portfolio";
+import { buildSkillIndex } from "../data/skillsIndex";
 
 function Book() {
   const book = useRef();
@@ -25,28 +26,35 @@ function Book() {
   ];
 
   // Important page locations
-  // 0 cover · 1 ex libris · 2 contents · 3 about · 4 skills
-  // 5+ chapters (2 pages each) · appendix (2 pages) · education
+  // 0 cover · 1 ex libris · 2 contents · 3 about · 4 education
+  // 5+ chapters (2 pages each) · appendix (2 pages) · skills index
   // · leadership · back cover
   const afterChapters = 5 + chapters.length * 2;
   const pageIndex = {
     home: 0,
     contents: 2,
     about: 3,
-    skills: 4,
+    education: 4,
     projects: 5,
     appendix: afterChapters,
-    education: afterChapters + 2,
+    index: afterChapters + 2,
     leadership: afterChapters + 3,
     contact: afterChapters + 4,
   };
+
+  const skillIndex = buildSkillIndex(projects, toRoman);
+
+  const refPage = (target) =>
+    target.type === "chapter"
+      ? pageIndex.projects + target.index * 2
+      : pageIndex.appendix;
 
   const contents = [
     {
       group: "Front Matter",
       entries: [
         { label: "About", page: pageIndex.about },
-        { label: "Skills", page: pageIndex.skills },
+        { label: "Education", page: pageIndex.education },
       ],
     },
     {
@@ -61,7 +69,7 @@ function Book() {
       group: "Back Matter",
       entries: [
         { label: "Appendix: Further Work", page: pageIndex.appendix },
-        { label: "Education", page: pageIndex.education },
+        { label: "Index of Skills", page: pageIndex.index },
         { label: "Leadership", page: pageIndex.leadership },
         { label: "Contact", page: pageIndex.contact },
       ],
@@ -98,11 +106,11 @@ function Book() {
       return "CONTENTS";
     }
 
-    if (page <= pageIndex.skills) {
-      return "ABOUT · SKILLS";
+    if (page <= pageIndex.education) {
+      return "ABOUT · EDUCATION";
     }
 
-    if (page >= pageIndex.appendix && page < pageIndex.education) {
+    if (page >= pageIndex.appendix && page < pageIndex.index) {
       return "APPENDIX";
     }
 
@@ -113,8 +121,8 @@ function Book() {
       return `CHAPTER ${toRoman(projectNumber)}`;
     }
 
-    if (page === pageIndex.education) {
-      return "EDUCATION";
+    if (page === pageIndex.index) {
+      return "INDEX";
     }
 
     if (page === pageIndex.leadership) {
@@ -157,6 +165,12 @@ function Book() {
             onClick={() => goToPage(pageIndex.projects)}
           >
             Projects
+          </button>
+
+          <button
+            onClick={() => goToPage(pageIndex.index)}
+          >
+            Skills
           </button>
 
           <button
@@ -371,65 +385,58 @@ function Book() {
 
 
             {/* ========================
-                SKILLS
+                EDUCATION
             ======================== */}
             <BookPage>
 
-            <span className="page-number">
-                02
-            </span>
-
             <p className="eyebrow">
-                Technical Toolkit
+                Education
             </p>
 
             <h2>
-                Skills
+                Education
             </h2>
 
-            <h3>
-                Languages
-            </h3>
+            <div className="education-entry">
 
-            <p>
-                Python · SQL · Java · JavaScript · TypeScript · R
-            </p>
+                <h3>
+                Rochester Institute of Technology
+                </h3>
 
-            <h3>
-                Machine Learning
-            </h3>
+                <p>
+                Master of Science in Data Science
+                </p>
 
-            <p>
-                PyTorch · Transformers · LSTMs · Multimodal
-                prediction · Calibration · scikit-learn ·
-                XGBoost · LightGBM · MLflow
-            </p>
+                <span>
+                Expected December 2026
+                </span> 
 
-            <h3>
-                LLMs &amp; Agents
-            </h3>
+                <div className="education-focus">
+                  <span>Machine Learning</span>
+                  <span>Data Engineering</span>
+                  <span>Statistics</span>
+                  <span>Databases</span>
+                  <span>Big Data</span>
+                  <span>Data Visualization</span>
+                </div>
+            </div>
 
-            <p>
-                Claude API · Tool-using agents · RAG ·
-                BM25 &amp; hybrid retrieval · LLM evaluation
-            </p>
 
-            <h3>
-                Data &amp; Infrastructure
-            </h3>
+            <div className="education-entry">
 
-            <p>
-                PySpark · Airflow · Kafka · BigQuery ·
-                FastAPI · Docker · GitHub Actions · AWS
-            </p>
+                <h3>
+                Maulana Azad National Institute of Technology
+                </h3>
 
-            <h3>
-                Databases
-            </h3>
+                <p>
+                Bachelor's in Electrical Engineering
+                </p>
 
-            <p>
-                PostgreSQL + pgvector · MySQL · MongoDB · Redis
-            </p>
+                <span>
+                May 2023
+                </span>
+
+            </div>
 
             </BookPage>
 
@@ -544,7 +551,7 @@ function Book() {
                       project.images.length > 1 ? "multiple-images" : ""
                     }`}
                   >
-                    {project.images.map((image) => (
+                    {project.images.map((image, imageIndex) => (
                       <figure
                         className="project-image-wrapper"
                         key={image.src}
@@ -556,11 +563,12 @@ function Book() {
                           draggable="false"
                         />
 
-                        {image.caption && (
-                          <figcaption>
-                            {image.caption}
-                          </figcaption>
-                        )}
+                        <figcaption>
+                          <span className="fig-label">
+                            Fig. {toRoman(chapterIndex + 1)}.{imageIndex + 1}
+                          </span>
+                          {image.caption}
+                        </figcaption>
                       </figure>
                     ))}
                   </div>
@@ -689,59 +697,74 @@ function Book() {
             ))}
 
 
+
+
             {/* ========================
-                EDUCATION
+                INDEX OF SKILLS
+                Alphabetical, with the chapters that use each skill.
             ======================== */}
-            <BookPage>
+            <BookPage className="index-page">
 
-            <p className="eyebrow">
-                Education
-            </p>
+              <p className="eyebrow">
+                Index
+              </p>
 
-            <h2>
-                Education
-            </h2>
+              <h2>
+                Index of Skills
+              </h2>
 
-            <div className="education-entry">
+              <p className="index-key">
+                Numerals refer to chapters
+                {chapters.map((project, i) => (
+                  ` · ${toRoman(i + 1)} ${project.title.split(":")[0]}`
+                ))}
+                {" · A appendix"}
+              </p>
 
-                <h3>
-                Rochester Institute of Technology
-                </h3>
+              <div className="index-columns">
 
-                <p>
-                Master of Science in Data Science
-                </p>
+                {skillIndex.map((group) => (
 
-                <span>
-                Expected December 2026
-                </span> 
+                  <div
+                    className="index-group"
+                    key={group.letter}
+                  >
 
-                <div className="education-focus">
-                  <span>Machine Learning</span>
-                  <span>Data Engineering</span>
-                  <span>Statistics</span>
-                  <span>Databases</span>
-                  <span>Big Data</span>
-                  <span>Data Visualization</span>
-                </div>
-            </div>
+                    <span className="index-letter">
+                      {group.letter}
+                    </span>
 
+                    <ul>
 
-            <div className="education-entry">
+                      {group.entries.map((entry) => (
 
-                <h3>
-                Maulana Azad National Institute of Technology
-                </h3>
+                        <li key={entry.name}>
 
-                <p>
-                Bachelor's in Electrical Engineering
-                </p>
+                          <span className="index-term">
+                            {entry.name}
+                          </span>
 
-                <span>
-                May 2023
-                </span>
+                          {entry.refs.map((ref) => (
+                            <button
+                              key={ref.label}
+                              className="index-ref"
+                              onClick={() => goToPage(refPage(ref.target))}
+                            >
+                              {ref.label}
+                            </button>
+                          ))}
 
-            </div>
+                        </li>
+
+                      ))}
+
+                    </ul>
+
+                  </div>
+
+                ))}
+
+              </div>
 
             </BookPage>
 
@@ -834,43 +857,53 @@ function Book() {
             ======================== */}
             <BookPage className="back-cover">
 
-            <div>
+              <div className="correspondence">
 
                 <p className="eyebrow">
-                Let's connect
+                  Correspondence
                 </p>
 
                 <h2>
-                Thanks for reading.
+                  Thanks for reading.
                 </h2>
+
+                <p className="correspondence-note">
+                  Open to AI/ML Engineer and Data Scientist roles.
+                  Write to the author:
+                </p>
 
                 <div className="contact-links">
 
-                <a
-                    href="mailto:Bashar28nov@gmail.com"
-                >
+                  <a href="mailto:Bashar28nov@gmail.com">
                     Email
-                </a>
+                  </a>
 
-                <a
+                  <a
                     href="https://github.com/basharfkhan"
                     target="_blank"
                     rel="noreferrer"
-                >
+                  >
                     GitHub
-                </a>
+                  </a>
 
-                <a
+                  <a
                     href="https://www.linkedin.com/in/basharfarooqkhan/"
                     target="_blank"
                     rel="noreferrer"
-                >
+                  >
                     LinkedIn
-                </a>
+                  </a>
 
                 </div>
 
-            </div>
+              </div>
+
+              <p className="colophon">
+                <span>Colophon</span>
+                Set in Cormorant Garamond and Inter, with Courier Prime
+                on the catalog card. Designed and built by the author
+                with React and Vite, and published on GitHub Pages.
+              </p>
 
             </BookPage>
 
