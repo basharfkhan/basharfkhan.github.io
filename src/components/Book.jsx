@@ -348,7 +348,7 @@ function Book() {
                 Turning data into decisions.
              </h2>
 
-             <p>
+             <p className="drop-cap">
                 I'm a Data Science graduate student at Rochester
                 Institute of Technology, interested in machine learning
                 and AI. I enjoy building systems that turn raw data into

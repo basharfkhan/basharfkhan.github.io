@@ -26,7 +26,7 @@ function MobilePortfolio() {
 
         <h2>Turning data into decisions.</h2>
 
-        <p>
+        <p className="drop-cap">
           Data Science graduate student at Rochester
           Institute of Technology building machine
           learning systems, data pipelines, APIs, and
@@ -93,7 +93,7 @@ function MobilePortfolio() {
 
           <h3>{project.subtitle}</h3>
 
-          <p>{project.description}</p>
+          <p className="drop-cap">{project.description}</p>
 
           {project.images?.map((image) => (
             <figure
