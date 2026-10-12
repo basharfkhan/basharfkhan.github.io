@@ -1,28 +1,27 @@
 import { projects } from "../data/portfolio";
 import AppendixEntry from "./AppendixEntry";
+import CoverCatalog from "./covers/CoverCatalog";
 
 function MobilePortfolio() {
+  const featured = projects.filter((project) => project.featured);
+
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <main className="mobile-portfolio">
 
-      <section className="mobile-hero">
-        <p>PORTFOLIO</p>
-
-        <h1>
-          Bashar
-          <br />
-          Farooq Khan
-        </h1>
-
-        <h2>AI/ML Engineer &amp; Data Scientist</h2>
-
-        <span>
-          Machine Learning · LLM Systems · Data Engineering
-        </span>
+      <section className="mobile-hero mobile-hero-catalog">
+        <CoverCatalog
+          chapters={featured.map((p) => p.title.split(":")[0])}
+          appendixCount={projects.length - featured.length}
+          onOpen={() => scrollTo("about")}
+        />
       </section>
 
 
-      <section>
+      <section id="about">
         <p className="eyebrow">About</p>
 
         <h2>Turning data into decisions.</h2>
@@ -81,6 +80,7 @@ function MobilePortfolio() {
       {projects.filter((project) => project.featured).map((project) => (
         <section
           className="mobile-project"
+          id={`project-${project.number}`}
           key={project.number}
         >
           <span className="project-number">
@@ -152,7 +152,7 @@ function MobilePortfolio() {
       ))}
 
 
-      <section className="mobile-appendix">
+      <section className="mobile-appendix" id="further-work">
         <p className="eyebrow">Appendix</p>
 
         <h2>Further Work</h2>

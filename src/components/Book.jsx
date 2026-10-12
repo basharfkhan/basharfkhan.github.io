@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
 import BookPage from "./BookPage";
 import AppendixEntry from "./AppendixEntry";
+import CoverCatalog from "./covers/CoverCatalog";
 import { projects } from "../data/portfolio";
 
 function Book() {
@@ -67,6 +68,7 @@ function Book() {
   ];
 
   const pageLabel = (page) => String(page + 1).padStart(2, "0");
+
 
   const goToPage = (page) => {
     const pageFlip = book.current?.pageFlip();
@@ -222,36 +224,11 @@ function Book() {
             ======================== */}
             <BookPage className="cover">
 
-            <div className="cover-content">
-
-                <span className="cover-small">
-                Portfolio
-                </span>
-
-                <div className="cover-main">
-                    <h1>
-                    Bashar
-                    <br />
-                    Farooq Khan
-                    </h1>
-                
-                    <div className="cover-line" />
-
-                    <h2>
-                    AI/ML Engineer &amp; Data Scientist
-                    </h2>
-
-                    <p>
-                    Machine Learning • LLM Systems • Data Engineering
-                    </p>
-
-                </div>
-
-                <span className="open-book">
-                Click or drag to open →
-                </span>
-
-            </div>
+              <CoverCatalog
+                chapters={chapters.map((p) => p.title.split(":")[0])}
+                appendixCount={appendix.length}
+                onOpen={() => goToPage(pageIndex.contents)}
+              />
 
             </BookPage>
 
