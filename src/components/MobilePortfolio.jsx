@@ -27,7 +27,7 @@ function MobilePortfolio() {
       <section id="about">
         <p className="eyebrow">About</p>
 
-        <h2>Recommenders, sequence models, and retrieval systems in production.</h2>
+        <h2>Recommenders, trajectory prediction, and retrieval systems in production.</h2>
 
         <p className="drop-cap">
           Data Science graduate student at Rochester

@@ -403,8 +403,8 @@ function Book() {
              </p>
 
              <h2>
-                Recommenders, sequence models, and retrieval
-                systems in production.
+                Recommenders, trajectory prediction, and
+                retrieval systems in production.
              </h2>
 
              <p className="drop-cap">
