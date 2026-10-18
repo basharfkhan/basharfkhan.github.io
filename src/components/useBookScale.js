@@ -38,9 +38,21 @@ export function useBookScale(stageRef, navRef, controlsRef) {
         (navRef.current?.offsetHeight ?? 0) +
         (controlsRef.current?.offsetHeight ?? 0);
 
-      // Margins and padding around the book that the two measurements above
-      // do not cover: .desktop-book padding, plus the nav and control margins.
-      const spacing = 30 + 24 + 22 + 38;
+      // Padding and margins the two measurements above do not cover. Read from
+      // the DOM rather than hardcoded, so changing the CSS cannot silently
+      // leave this calculation wrong.
+      const container = stage.closest(".desktop-book");
+      const containerStyle = container ? getComputedStyle(container) : null;
+      const navStyle = navRef.current ? getComputedStyle(navRef.current) : null;
+      const controlsStyle = controlsRef.current
+        ? getComputedStyle(controlsRef.current)
+        : null;
+
+      const spacing =
+        parseFloat(containerStyle?.paddingTop ?? 0) +
+        parseFloat(containerStyle?.paddingBottom ?? 0) +
+        parseFloat(navStyle?.marginBottom ?? 0) +
+        parseFloat(controlsStyle?.marginTop ?? 0);
 
       // 2px of slack: the nav and controls report fractional heights, which
       // round up against the viewport and leave the page scrollable by a pixel.

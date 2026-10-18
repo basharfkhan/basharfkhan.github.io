@@ -191,7 +191,11 @@ a {
   justify-content: center;
   align-items: center;
 
-  padding: 30px 42px 38px;
+  /*
+    Kept tight on purpose: every pixel here is one the book cannot use, and on
+    a 720p laptop that comes straight off the type size.
+  */
+  padding: 18px 42px 24px;
 }
 
 
@@ -1212,7 +1216,7 @@ a {
   justify-content: space-between;
   align-items: center;
 
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 
   padding: 11px 17px;
 
@@ -1312,7 +1316,7 @@ a {
 
   align-items: center;
 
-  margin-top: 22px;
+  margin-top: 14px;
 
   color:
     rgba(246, 237, 216, 0.63);
