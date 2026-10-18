@@ -1,5 +1,6 @@
 import { projects } from "../data/portfolio";
 import { buildSkillIndex } from "../data/skillsIndex";
+import { experience } from "../data/experience";
 import AppendixEntry from "./AppendixEntry";
 import { toRoman } from "./roman";
 import CoverCatalog from "./covers/CoverCatalog";
@@ -48,6 +49,66 @@ function MobilePortfolio() {
         </h2>
         <p>Bachelor's in Electrical Engineering</p>
       </section>
+
+
+      {experience.map((job) => (
+        <section
+          className="mobile-project mobile-experience"
+          id={`experience-${job.id}`}
+          key={job.id}
+        >
+          <p className="eyebrow">Work Experience</p>
+
+          <h2>{job.program}</h2>
+
+          <h3>
+            {job.organization} ·{" "}
+            <span className="no-break">{job.dates}</span>
+          </h3>
+
+          <p className="drop-cap">{job.summary}</p>
+
+          <p className="experience-note">{job.evaluationNote}</p>
+
+          <div className="project-stat-grid">
+            {job.stats.map((stat) => (
+              <div className="project-stat" key={stat.label}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <ul>
+            {job.highlights.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+
+          <div className="tech-list">
+            {job.technologies.map((tech) => (
+              <span key={tech}>{tech}</span>
+            ))}
+          </div>
+
+          <div className="mobile-project-links">
+            <a href={job.github} target="_blank" rel="noreferrer">
+              View GitHub ↗
+            </a>
+
+            {job.demo && (
+              <a
+                href={job.demo}
+                target="_blank"
+                rel="noreferrer"
+                className="primary"
+              >
+                Watch the Demo ↗
+              </a>
+            )}
+          </div>
+        </section>
+      ))}
 
 
 
@@ -160,11 +221,11 @@ function MobilePortfolio() {
           {featured.map((project, i) => (
             ` · ${toRoman(i + 1)} ${project.title.split(":")[0]}`
           ))}
-          {" · A appendix"}
+          {" · A appendix · E externship"}
         </p>
 
         <div className="index-columns">
-          {buildSkillIndex(projects, toRoman).map((group) => (
+          {buildSkillIndex(projects, toRoman, experience).map((group) => (
             <div className="index-group" key={group.letter}>
               <span className="index-letter">{group.letter}</span>
 
@@ -182,7 +243,9 @@ function MobilePortfolio() {
                             scrollTo(
                               ref.target.type === "chapter"
                                 ? `project-${featured[ref.target.index].number}`
-                                : "further-work"
+                                : ref.target.type === "experience"
+                                  ? `experience-${experience[ref.target.index].id}`
+                                  : "further-work"
                             )
                           }
                         >

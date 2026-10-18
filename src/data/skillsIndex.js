@@ -35,11 +35,16 @@ export const skills = [
   { name: "Claude API", match: ["Claude"] },
   { name: "Tool-using agents", match: ["Tool Use", "tool-using", "tool use"] },
   { name: "RAG" },
+  { name: "LlamaIndex" },
+  { name: "Mistral-7B", match: ["Mistral"] },
+  { name: "Gradio" },
   { name: "BM25, dense & hybrid retrieval", match: ["BM25", "hybrid retrieval", "dense retrieval"] },
   { name: "LLM evaluation", match: ["LLM Evaluation", "LLM-as-judge", "judge"] },
   { name: "Held-out test design", match: ["held-out"] },
   { name: "Prompt design", match: ["prompt"] },
-  { name: "Tesseract OCR", match: ["Tesseract", "OCR"] },
+  { name: "Tesseract OCR", match: ["Tesseract"] },
+  { name: "EasyOCR" },
+  { name: "PyMuPDF" },
 
   // Data engineering
   { name: "PySpark" },
@@ -106,6 +111,19 @@ function wholeWord(term) {
   );
 }
 
+// Lets a work-experience entry be checked like a project
+function asProject(job) {
+  return {
+    title: job.program,
+    subtitle: job.project,
+    description: job.summary,
+    problem: job.problem,
+    approach: job.built,
+    highlights: job.highlights,
+    technologies: job.technologies,
+  };
+}
+
 function projectText(project) {
   return [
     project.title,
@@ -136,8 +154,9 @@ function usesSkill(project, skill) {
 }
 
 // Returns [{ letter, entries: [{ name, refs: [{ label, target }] }] }],
-// alphabetical. `target` is { type: "chapter", index } or { type: "appendix" }.
-export function buildSkillIndex(projects, toRoman) {
+// alphabetical. `target` is { type: "chapter", index }, { type: "appendix" }
+// or { type: "experience", index }.
+export function buildSkillIndex(projects, toRoman, experience = []) {
   const featured = projects.filter((p) => p.featured);
   const appendix = projects.filter((p) => !p.featured);
 
@@ -153,6 +172,12 @@ export function buildSkillIndex(projects, toRoman) {
     if (appendix.some((project) => usesSkill(project, skill))) {
       refs.push({ label: "A", target: { type: "appendix" } });
     }
+
+    experience.forEach((job, index) => {
+      if (usesSkill(asProject(job), skill)) {
+        refs.push({ label: "E", target: { type: "experience", index } });
+      }
+    });
 
     return { name: skill.name, refs };
   });

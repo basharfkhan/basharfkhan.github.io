@@ -7,6 +7,7 @@ import CoverCatalog from "./covers/CoverCatalog";
 import { useBookScale } from "./useBookScale";
 import { projects } from "../data/portfolio";
 import { buildSkillIndex } from "../data/skillsIndex";
+import { experience } from "../data/experience";
 
 function Book() {
   const book = useRef();
@@ -33,27 +34,36 @@ function Book() {
 
   // Important page locations
   // 0 cover · 1 ex libris · 2 contents · 3 about · 4 education
-  // 5+ chapters (2 pages each) · appendix (2 pages) · skills index
-  // · leadership · back cover
-  const afterChapters = 5 + chapters.length * 2;
+  // 5+ work experience (2 pages each) · chapters (2 pages each)
+  // · appendix (2 pages) · skills index · leadership · back cover
+  const firstChapter = 5 + experience.length * 2;
+  const afterChapters = firstChapter + chapters.length * 2;
   const pageIndex = {
     home: 0,
     contents: 2,
     about: 3,
     education: 4,
-    projects: 5,
+    experience: 5,
+    projects: firstChapter,
     appendix: afterChapters,
     index: afterChapters + 2,
     leadership: afterChapters + 3,
     contact: afterChapters + 4,
   };
 
-  const skillIndex = buildSkillIndex(projects, toRoman);
+  const skillIndex = buildSkillIndex(projects, toRoman, experience);
 
-  const refPage = (target) =>
-    target.type === "chapter"
-      ? pageIndex.projects + target.index * 2
-      : pageIndex.appendix;
+  const refPage = (target) => {
+    if (target.type === "chapter") {
+      return pageIndex.projects + target.index * 2;
+    }
+
+    if (target.type === "experience") {
+      return pageIndex.experience + target.index * 2;
+    }
+
+    return pageIndex.appendix;
+  };
 
   const contents = [
     {
@@ -61,6 +71,10 @@ function Book() {
       entries: [
         { label: "About", page: pageIndex.about },
         { label: "Education", page: pageIndex.education },
+        ...experience.map((job, i) => ({
+          label: `Experience: ${job.shortName}`,
+          page: pageIndex.experience + i * 2,
+        })),
       ],
     },
     {
@@ -116,6 +130,10 @@ function Book() {
       return "ABOUT · EDUCATION";
     }
 
+    if (page < pageIndex.projects) {
+      return "WORK EXPERIENCE";
+    }
+
     if (page >= pageIndex.appendix && page < pageIndex.index) {
       return "APPENDIX";
     }
@@ -165,6 +183,12 @@ function Book() {
             onClick={() => goToPage(pageIndex.about)}
           >
             About
+          </button>
+
+          <button
+            onClick={() => goToPage(pageIndex.experience)}
+          >
+            Experience
           </button>
 
           <button
@@ -461,6 +485,146 @@ function Book() {
 
 
             {/* ========================
+                WORK EXPERIENCE (two pages per role)
+            ======================== */}
+            {experience.flatMap((job) => [
+
+              <BookPage
+                key={`${job.id}-overview`}
+                className="project-intro-page experience-page"
+              >
+
+                <p className="eyebrow">
+                  Work Experience
+                </p>
+
+                <p className="chapter-label">
+                  {job.type} · {job.dates}
+                </p>
+
+                <h2>
+                  {job.program}
+                </h2>
+
+                <h3 className="project-subtitle">
+                  {job.organization}
+                </h3>
+
+                <div className="project-section">
+
+                  <span className="project-section-label">
+                    The Problem
+                  </span>
+
+                  <p className="drop-cap">
+                    {job.problem}
+                  </p>
+
+                </div>
+
+                <div className="project-section">
+
+                  <span className="project-section-label">
+                    What I Built: {job.project}
+                  </span>
+
+                  <ul className="project-approach">
+                    {job.built.map((item) => (
+                      <li key={item}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                </div>
+
+              </BookPage>,
+
+              <BookPage
+                key={`${job.id}-results`}
+                className="project-detail-page"
+              >
+
+                <p className="eyebrow">
+                  {job.type} · Results
+                </p>
+
+                <h2>
+                  Evaluation
+                </h2>
+
+                <p className="experience-note">
+                  {job.evaluationNote}
+                </p>
+
+                <div className="project-stat-grid">
+                  {job.stats.map((stat) => (
+                    <div
+                      className="project-stat"
+                      key={stat.label}
+                    >
+                      <strong>
+                        {stat.value}
+                      </strong>
+                      <span>
+                        {stat.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="project-results">
+
+                  <span className="project-section-label">
+                    Key Takeaways
+                  </span>
+
+                  <ul className="project-highlights">
+                    {job.highlights.map((highlight) => (
+                      <li key={highlight}>
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+
+                </div>
+
+                <div className="tech-list">
+                  {job.technologies.map((tech) => (
+                    <span key={tech}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="project-links">
+
+                  <a
+                    href={job.github}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View GitHub ↗
+                  </a>
+
+                  {job.demo && (
+                    <a
+                      href={job.demo}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Watch the Demo ↗
+                    </a>
+                  )}
+
+                </div>
+
+              </BookPage>,
+
+            ])}
+
+
+            {/* ========================
                 PROJECTS
             ======================== */}
             {chapters.flatMap((project, chapterIndex) => [
@@ -737,7 +901,7 @@ function Book() {
                 {chapters.map((project, i) => (
                   ` · ${toRoman(i + 1)} ${project.title.split(":")[0]}`
                 ))}
-                {" · A appendix"}
+                {" · A appendix · E externship"}
               </p>
 
               <div className="index-columns">

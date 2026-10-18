@@ -1,5 +1,7 @@
 // The front cover: a library catalog card, written in plain labelled
 // lines so it reads clearly even to someone who has never used one.
+import { experience } from "../../data/experience";
+
 function CoverCatalog({ chapters, appendixCount, onOpen }) {
   const rows = [
     {
@@ -10,6 +12,10 @@ function CoverCatalog({ chapters, appendixCount, onOpen }) {
       label: "Education",
       value: "M.S. Data Science, Rochester Institute of Technology (expected Dec 2026)",
     },
+    ...experience.map((job) => ({
+      label: "Experience",
+      value: `${job.program} ${job.type.toLowerCase()} (${job.dates})`,
+    })),
     {
       label: "Contents",
       value: `${chapters.length} chapters (${chapters.join(", ")}), plus ${appendixCount} more projects in the appendix`,

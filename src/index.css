@@ -2619,3 +2619,33 @@ a {
 .index-refs {
   white-space: nowrap;
 }
+
+/* =========================================================
+   WORK EXPERIENCE
+========================================================= */
+
+.book-page p.experience-note,
+.experience-note {
+  margin: 0 0 14px;
+
+  color: var(--ink-soft);
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+/* The overview page scrolls like the results page if it runs long */
+.experience-page .page-content {
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(151, 118, 62, 0.4) transparent;
+
+  overscroll-behavior: contain;
+}
+
+.no-break {
+  white-space: nowrap;
+}
