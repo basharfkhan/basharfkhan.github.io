@@ -42,7 +42,9 @@ export function useBookScale(stageRef, navRef, controlsRef) {
       // do not cover: .desktop-book padding, plus the nav and control margins.
       const spacing = 30 + 24 + 22 + 38;
 
-      const availableHeight = window.innerHeight - chrome - spacing;
+      // 2px of slack: the nav and controls report fractional heights, which
+      // round up against the viewport and leave the page scrollable by a pixel.
+      const availableHeight = window.innerHeight - chrome - spacing - 2;
       const availableWidth = window.innerWidth * 0.94;
 
       const next = Math.min(
@@ -53,7 +55,9 @@ export function useBookScale(stageRef, navRef, controlsRef) {
 
       const clamped = Math.max(MIN_SCALE, Math.min(next, MAX_SCALE));
       setScale(clamped);
-      setFitHeight(naturalHeight * clamped);
+      // Floored: a fractional height rounds up against the viewport and leaves
+      // the page scrollable by a pixel.
+      setFitHeight(Math.floor(naturalHeight * clamped));
     };
 
     measure();

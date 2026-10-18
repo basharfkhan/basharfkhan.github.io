@@ -18,8 +18,12 @@ function Book() {
   const { scale, fitHeight } = useBookScale(stageRef, navRef, controlsRef);
 
   const [currentPage, setCurrentPage] = useState(0);
+  // Replaced by the real count on init; this only has to be right for the
+  // first paint, before the flipbook reports its page count.
   const [totalPages, setTotalPages] = useState(
-    10 + projects.filter((p) => p.featured).length * 2
+    10 +
+      projects.filter((p) => p.featured).length * 2 +
+      experience.length * 2
   );
 
   // Flagship projects get a full two-page chapter;
