@@ -16,6 +16,15 @@ export const projects = [
     subtitle:
       "Full-Stack Recommender System That Learns As You Read",
 
+    sigil: "book",
+
+    // Opens the results page. DRAFT: rewrite in your own words.
+    epigraph: {
+      text:
+        "A thirty percent gain on a held-out set is a claim about the metric. Whether it is also a claim about the reader is a separate question, and it needs a separate experiment.",
+      source: "From the project log, Experiment 001",
+    },
+
     type:
       "Deployed Personal Project",
 
@@ -103,6 +112,15 @@ export const projects = [
 
     subtitle:
       "Multi-Agent Transformer for Conflict Warning",
+
+    sigil: "converge",
+
+    // DRAFT: rewrite in your own words.
+    epigraph: {
+      text:
+        "Fourteen times the parameters bought less than one percent. Letting the model see the other aircraft bought twenty-one. The limit was never capacity.",
+      source: "From the ablation chain",
+    },
 
     type:
       "Deep Learning Project",
@@ -211,6 +229,15 @@ export const projects = [
 
     subtitle:
       "Spaceflight Pre-Mortem Agent Over NASA's Lessons Learned",
+
+    sigil: "lens",
+
+    // DRAFT: rewrite in your own words.
+    epigraph: {
+      text:
+        "Every failure in the corpus was written down by someone who had already paid for it. The work is making sure the next person finds it in time.",
+      source: "On the lessons learned corpus",
+    },
 
     type:
       "Deployed AI Engineering Project",

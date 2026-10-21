@@ -5,6 +5,17 @@ import AppendixEntry from "./AppendixEntry";
 import { toRoman } from "./roman";
 import CoverCatalog from "./covers/CoverCatalog";
 import { useBookScale } from "./useBookScale";
+import Sigil from "./Sigil";
+import Spheres from "./Spheres";
+
+// "Alexandria: Book Recommender" -> name + descriptor. Titles without a colon
+// keep the whole string as the name.
+function splitTitle(title) {
+  const at = title.indexOf(":");
+  return at === -1
+    ? { name: title, descriptor: null }
+    : { name: title.slice(0, at).trim(), descriptor: title.slice(at + 1).trim() };
+}
 import { projects } from "../data/portfolio";
 import { buildSkillIndex } from "../data/skillsIndex";
 import { experience } from "../data/experience";
@@ -92,7 +103,7 @@ function Book() {
     {
       group: "Back Matter",
       entries: [
-        { label: "Appendix: Further Work", page: pageIndex.appendix },
+        { label: "Interludes: Further Work", page: pageIndex.appendix },
         { label: "Index of Skills", page: pageIndex.index },
         { label: "Leadership", page: pageIndex.leadership },
         { label: "Contact", page: pageIndex.contact },
@@ -149,7 +160,7 @@ function Book() {
     }
 
     if (page >= pageIndex.appendix && page < pageIndex.index) {
-      return "APPENDIX";
+      return "INTERLUDES";
     }
 
     if (page >= pageIndex.projects && page < pageIndex.appendix) {
@@ -512,6 +523,11 @@ function Book() {
                   Work Experience
                 </p>
 
+                <div className="chapter-sigil">
+                  <Sigil name={job.sigil} size={34} />
+                  <span className="rule" />
+                </div>
+
                 <p className="chapter-label">
                   {job.type} · {job.dates}
                 </p>
@@ -660,13 +676,26 @@ function Book() {
                   {project.type}
                 </p>
 
+                <div className="chapter-sigil">
+                  <Sigil name={project.sigil} size={34} />
+                  <span className="rule" />
+                </div>
+
                 <p className="chapter-label">
-                  Chapter {toRoman(chapterIndex + 1)}
+                  Part One &middot; Chapter {toRoman(chapterIndex + 1)}
                 </p>
 
+                {/* Split at the colon the titles already use: the name carries
+                    the chapter, the descriptor says what it is. */}
                 <h2>
-                  {project.title}
+                  {splitTitle(project.title).name}
                 </h2>
+
+                {splitTitle(project.title).descriptor && (
+                  <p className="project-descriptor">
+                    {splitTitle(project.title).descriptor}
+                  </p>
+                )}
 
                 <h3 className="project-subtitle">
                   {project.subtitle}
@@ -738,6 +767,15 @@ function Book() {
                 <h2>
                   Architecture & Results
                 </h2>
+
+                {project.epigraph && (
+                  <p className="epigraph">
+                    {project.epigraph.text}
+                    <span className="epigraph-source">
+                      {project.epigraph.source}
+                    </span>
+                  </p>
+                )}
 
 
                 {/* Project Images */}
@@ -854,7 +892,7 @@ function Book() {
 
 
             {/* ========================
-                APPENDIX (two pages)
+                INTERLUDES (two pages)
             ======================== */}
             {appendixPages.map((items, pageNo) => (
 
@@ -864,7 +902,7 @@ function Book() {
               >
 
                 <p className="eyebrow">
-                  {pageNo === 0 ? "Appendix" : "Appendix · Continued"}
+                  {pageNo === 0 ? "Interludes" : "Interludes · Continued"}
                 </p>
 
                 {pageNo === 0 && (
@@ -1129,6 +1167,8 @@ function Book() {
 
 
         <div className="page-indicator">
+
+          <Spheres total={totalPages} current={currentPage} />
 
           <span className="section-indicator">
             {getSectionLabel(currentPage)}

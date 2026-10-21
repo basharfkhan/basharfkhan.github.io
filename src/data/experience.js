@@ -19,6 +19,8 @@ export const experience = [
 
     project: "Pharma Supplier Document Assistant",
 
+    sigil: "page",
+
     summary:
       "A retrieval-augmented assistant for pharmaceutical supplier documents, digital or scanned. Ask a question in plain English and get an answer that cites the source file and page, with a confidence level. Everything runs locally, so documents never leave the machine.",
 

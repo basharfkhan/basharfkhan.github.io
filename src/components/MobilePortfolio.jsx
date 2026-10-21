@@ -190,7 +190,7 @@ function MobilePortfolio() {
 
 
       <section className="mobile-appendix" id="further-work">
-        <p className="eyebrow">Appendix</p>
+        <p className="eyebrow">Interludes</p>
 
         <h2>Further Work</h2>
 
