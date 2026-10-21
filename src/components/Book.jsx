@@ -81,22 +81,23 @@ function Book() {
   };
 
   /*
-    Chapters are numbered within their Part, so the first role and the first
-    project are both Chapter I. The skills index deliberately does not follow
+    The prologue sits outside the Part numbering, the way it does in the books:
+    Prologue, then Part One. Chapters number within their Part, so the first
+    role and the first project are both Chapter I. The skills index deliberately does not follow
     this: it is a lookup table with a flat namespace (I/II/III for projects,
     E for the externship, A for the interludes), and compound refs would widen
     a page that currently fits with no slack at all.
   */
   const contents = [
     {
-      group: "Part One · Background",
+      group: "Prologue",
       entries: [
         { label: "About", page: pageIndex.about },
         { label: "Education", page: pageIndex.education },
       ],
     },
     {
-      group: "Part Two · Work Experience",
+      group: "Part One · Work Experience",
       entries: experience.map((job, i) => ({
         numeral: toRoman(i + 1),
         label: job.shortName,
@@ -104,7 +105,7 @@ function Book() {
       })),
     },
     {
-      group: "Part Three · Featured Projects",
+      group: "Part Two · Featured Projects",
       entries: chapters.map((project, i) => ({
         numeral: toRoman(i + 1),
         label: project.title.split(":")[0],
@@ -163,12 +164,12 @@ function Book() {
     }
 
     if (page <= pageIndex.education) {
-      return "PART ONE · BACKGROUND";
+      return "PROLOGUE";
     }
 
     if (page < pageIndex.projects) {
       const offset = page - pageIndex.experience;
-      return `PART TWO · CHAPTER ${toRoman(Math.floor(offset / 2) + 1)}`;
+      return `PART ONE · CHAPTER ${toRoman(Math.floor(offset / 2) + 1)}`;
     }
 
     if (page >= pageIndex.appendix && page < pageIndex.index) {
@@ -179,7 +180,7 @@ function Book() {
       const projectPageOffset = page - pageIndex.projects;
       const projectNumber = Math.floor(projectPageOffset / 2) + 1;
 
-      return `PART THREE · CHAPTER ${toRoman(projectNumber)}`;
+      return `PART TWO · CHAPTER ${toRoman(projectNumber)}`;
     }
 
     if (page === pageIndex.index) {
@@ -542,7 +543,7 @@ function Book() {
                 </div>
 
                 <p className="chapter-label">
-                  Part Two &middot; Chapter {toRoman(jobIndex + 1)}
+                  Part One &middot; Chapter {toRoman(jobIndex + 1)}
                 </p>
 
                 <h2>
@@ -700,7 +701,7 @@ function Book() {
                 </div>
 
                 <p className="chapter-label">
-                  Part Three &middot; Chapter {toRoman(chapterIndex + 1)}
+                  Part Two &middot; Chapter {toRoman(chapterIndex + 1)}
                 </p>
 
                 {/* Split at the colon the titles already use: the name carries
