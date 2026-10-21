@@ -118,7 +118,7 @@ export const projects = [
     // DRAFT: rewrite in your own words.
     epigraph: {
       text:
-        "Fourteen times the parameters bought less than one percent. Letting the model see the other aircraft bought twenty-one. The limit was never capacity.",
+        "Fourteen times the parameters bought less than one percent. Letting the model see the other aircraft bought twenty-one. Capacity was not the bottleneck.",
       source: "From the ablation chain",
     },
 
