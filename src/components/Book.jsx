@@ -80,20 +80,31 @@ function Book() {
     return pageIndex.appendix;
   };
 
+  /*
+    Chapters are numbered within their Part, so the first role and the first
+    project are both Chapter I. The skills index deliberately does not follow
+    this: it is a lookup table with a flat namespace (I/II/III for projects,
+    E for the externship, A for the interludes), and compound refs would widen
+    a page that currently fits with no slack at all.
+  */
   const contents = [
     {
-      group: "Front Matter",
+      group: "Part One · Background",
       entries: [
         { label: "About", page: pageIndex.about },
         { label: "Education", page: pageIndex.education },
-        ...experience.map((job, i) => ({
-          label: `Experience: ${job.shortName}`,
-          page: pageIndex.experience + i * 2,
-        })),
       ],
     },
     {
-      group: "Selected Work",
+      group: "Part Two · Work Experience",
+      entries: experience.map((job, i) => ({
+        numeral: toRoman(i + 1),
+        label: job.shortName,
+        page: pageIndex.experience + i * 2,
+      })),
+    },
+    {
+      group: "Part Three · Featured Projects",
       entries: chapters.map((project, i) => ({
         numeral: toRoman(i + 1),
         label: project.title.split(":")[0],
@@ -152,11 +163,12 @@ function Book() {
     }
 
     if (page <= pageIndex.education) {
-      return "ABOUT · EDUCATION";
+      return "PART ONE · BACKGROUND";
     }
 
     if (page < pageIndex.projects) {
-      return "WORK EXPERIENCE";
+      const offset = page - pageIndex.experience;
+      return `PART TWO · CHAPTER ${toRoman(Math.floor(offset / 2) + 1)}`;
     }
 
     if (page >= pageIndex.appendix && page < pageIndex.index) {
@@ -167,7 +179,7 @@ function Book() {
       const projectPageOffset = page - pageIndex.projects;
       const projectNumber = Math.floor(projectPageOffset / 2) + 1;
 
-      return `CHAPTER ${toRoman(projectNumber)}`;
+      return `PART THREE · CHAPTER ${toRoman(projectNumber)}`;
     }
 
     if (page === pageIndex.index) {
@@ -512,7 +524,7 @@ function Book() {
             {/* ========================
                 WORK EXPERIENCE (two pages per role)
             ======================== */}
-            {experience.flatMap((job) => [
+            {experience.flatMap((job, jobIndex) => [
 
               <BookPage
                 key={`${job.id}-overview`}
@@ -530,12 +542,16 @@ function Book() {
                 </div>
 
                 <p className="chapter-label">
-                  {job.type} · {job.dates}
+                  Part Two &middot; Chapter {toRoman(jobIndex + 1)}
                 </p>
 
                 <h2>
                   {job.program}
                 </h2>
+
+                <p className="project-descriptor">
+                  {job.type} &middot; {job.dates}
+                </p>
 
                 <h3 className="project-subtitle">
                   {job.organization}
@@ -684,7 +700,7 @@ function Book() {
                 </div>
 
                 <p className="chapter-label">
-                  Part One &middot; Chapter {toRoman(chapterIndex + 1)}
+                  Part Three &middot; Chapter {toRoman(chapterIndex + 1)}
                 </p>
 
                 {/* Split at the colon the titles already use: the name carries
