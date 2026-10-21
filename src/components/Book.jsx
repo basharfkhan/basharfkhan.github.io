@@ -113,9 +113,12 @@ function Book() {
       })),
     },
     {
-      group: "Back Matter",
+      group: "Interludes",
+      entries: [{ label: "Further Work", page: pageIndex.appendix }],
+    },
+    {
+      group: "Epilogue",
       entries: [
-        { label: "Interludes: Further Work", page: pageIndex.appendix },
         { label: "Index of Skills", page: pageIndex.index },
         { label: "Leadership", page: pageIndex.leadership },
         { label: "Contact", page: pageIndex.contact },
@@ -184,14 +187,14 @@ function Book() {
     }
 
     if (page === pageIndex.index) {
-      return "INDEX";
+      return "EPILOGUE · INDEX OF SKILLS";
     }
 
     if (page === pageIndex.leadership) {
-      return "LEADERSHIP";
+      return "EPILOGUE · LEADERSHIP";
     }
 
-    return "CONTACT";
+    return "EPILOGUE · CONTACT";
   };
 
   return (
