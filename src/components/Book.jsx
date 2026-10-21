@@ -137,11 +137,18 @@ function Book() {
       flip() animates a page turn, and from the closed cover there is no page
       to turn: it silently does nothing, so every nav button and the cover's
       own "Open the book" were dead until the reader had opened the book with
-      the Next arrow. turnToPage jumps without animation and works from any
-      state, so the cover uses that and everything else keeps the animation.
+      the Next arrow.
+
+      Opening onto the first spread is a real page turn, so flipNext animates
+      it properly. Jumping from the cover to somewhere deeper is not, and
+      turnToPage is the only thing that works from a closed book.
     */
     if (pageFlip.getCurrentPageIndex() === 0) {
-      pageFlip.turnToPage(page);
+      if (page <= 2) {
+        pageFlip.flipNext();
+      } else {
+        pageFlip.turnToPage(page);
+      }
     } else {
       pageFlip.flip(page, "bottom");
     }
@@ -227,6 +234,12 @@ function Book() {
           </button>
 
           <button
+            onClick={() => goToPage(pageIndex.education)}
+          >
+            Education
+          </button>
+
+          <button
             onClick={() => goToPage(pageIndex.experience)}
           >
             Experience
@@ -242,12 +255,6 @@ function Book() {
             onClick={() => goToPage(pageIndex.index)}
           >
             Skills
-          </button>
-
-          <button
-            onClick={() => goToPage(pageIndex.education)}
-          >
-            Education
           </button>
 
           <button
@@ -303,6 +310,10 @@ function Book() {
             size="stretch"
 
             showCover={true}
+
+            // Slower than the 1000ms default, so opening the cover reads as a
+            // page being turned rather than a transition.
+            flippingTime={1500}
 
             maxShadowOpacity={0.35}
 

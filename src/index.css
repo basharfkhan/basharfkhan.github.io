@@ -504,8 +504,16 @@ a {
    PAGE NUMBERS
 ========================================================= */
 
+/*
+  Taken out of flow. As a block in the text column this folio mark pushed the
+  chapter opening 20px below the facing page's heading, which both broke the
+  alignment across the spread and cost the left page more height than it had
+  to spare, clipping the last row of tech tags.
+*/
 .page-number {
-  margin-left: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
 
   color: rgba(65, 48, 30, 0.44);
 
@@ -593,12 +601,12 @@ a {
 
   /* The chips are the last block on a fixed-height intro page, so this gap is what decides
      whether they are visible at all on the longest entries. */
-  margin-top: 14px;
+  margin-top: 10px;
 }
 
 
 .tech-list span {
-  padding: 7px 12px;
+  padding: 5px 11px;
 
   color: #504532;
 
@@ -641,7 +649,7 @@ a {
 ========================================================= */
 
 .project-section {
-  margin-top: 18px;
+  margin-top: 14px;
 }
 
 
@@ -673,7 +681,7 @@ a {
 
 
 .project-approach li {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 
   color: var(--ink-soft);
 
