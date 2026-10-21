@@ -524,6 +524,7 @@ function Book() {
                 </p>
 
                 <div className="chapter-sigil">
+                  <span className="rule" />
                   <Sigil name={job.sigil} size={34} />
                   <span className="rule" />
                 </div>
@@ -677,6 +678,7 @@ function Book() {
                 </p>
 
                 <div className="chapter-sigil">
+                  <span className="rule" />
                   <Sigil name={project.sigil} size={34} />
                   <span className="rule" />
                 </div>

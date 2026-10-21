@@ -2659,24 +2659,48 @@ a {
    STORMLIGHT: CHAPTER SIGILS, EPIGRAPHS, SPHERE INDICATOR
 ========================================================= */
 
-/* Chapter sigil. Left-aligned with a rule running right, because the chapter
-   opening is left-aligned: a centred mark floats away from the title. */
+/* Chapter sigil, centred with a rule running out to each side. Reads as a
+   divider across the column rather than as part of the left-aligned text. */
 .chapter-sigil {
   display: flex;
   align-items: center;
-  gap: 13px;
+  justify-content: center;
+  gap: 14px;
 
-  margin: 6px 0 12px;
+  margin: 2px 0 10px;
 
   color: var(--burgundy);
 }
 
 .chapter-sigil .rule {
   flex: 1;
-  max-width: 190px;
   height: 1px;
 
   background: rgba(155, 122, 52, 0.4);
+}
+
+
+/* Tighten the chapter opening. The sigil and descriptor both cost vertical
+   space, and the intro page was already close to its limit. */
+.project-intro-page h2,
+.experience-page h2 {
+  margin-bottom: 5px;
+}
+
+.project-intro-page .project-subtitle,
+.experience-page .project-subtitle {
+  margin-top: 1px !important;
+  margin-bottom: 13px !important;
+}
+
+
+/* Same inner scroll the results and experience pages already use. Without it
+   a long tech list is silently clipped instead of being reachable. */
+.project-intro-page .page-content {
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(151, 118, 62, 0.4) transparent;
 }
 
 .chapter-sigil .sigil {
@@ -2686,7 +2710,7 @@ a {
 
 /* The two-word descriptor lifted out of the title at the colon. */
 .book-page p.project-descriptor {
-  margin: 6px 0 0;
+  margin: 0 0 1px;
 
   color: var(--gold);
 
