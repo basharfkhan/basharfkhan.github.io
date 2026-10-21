@@ -2527,10 +2527,11 @@ a {
   letter-spacing: 0.03em;
 }
 
-/* Index page: compact setting so all entries fit one page,
-   with the same inner scroll as case-study pages as a fallback. */
+/* The index runs across as many pages as it needs now, so it does not scroll
+   either. Growing past a page adds a page, rather than hiding entries behind
+   a scrollbar nobody goes looking for. */
 .index-page .page-content {
-  overflow-y: auto;
+  overflow: hidden;
 
   scrollbar-width: thin;
   scrollbar-color: rgba(151, 118, 62, 0.4) transparent;

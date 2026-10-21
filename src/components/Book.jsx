@@ -17,6 +17,39 @@ import Spheres from "./Spheres";
 */
 const CHAPTER_PAGES = 4;
 
+/*
+  The skills index is generated rather than written, so unlike the chapters it
+  can be split by rule instead of by hand. A row is a skill, plus one for each
+  letter heading; the budget is per page across both CSS columns, and a letter
+  group is never broken across a page so the alphabet stays followable.
+
+  Tuned against the rendered page: raising it past this overflows, and pages
+  cannot scroll any more.
+*/
+const INDEX_ROWS_PER_PAGE = 62;
+
+function paginateIndex(groups) {
+  const pages = [];
+  let current = [];
+  let rows = 0;
+
+  for (const group of groups) {
+    const cost = 1 + group.entries.length;
+
+    if (rows + cost > INDEX_ROWS_PER_PAGE && current.length) {
+      pages.push(current);
+      current = [];
+      rows = 0;
+    }
+
+    current.push(group);
+    rows += cost;
+  }
+
+  if (current.length) pages.push(current);
+  return pages;
+}
+
 // "Alexandria: Book Recommender" -> name + descriptor. Titles without a colon
 // keep the whole string as the name.
 function splitTitle(title) {
@@ -41,9 +74,10 @@ function Book() {
   // Replaced by the real count on init; this only has to be right for the
   // first paint, before the flipbook reports its page count.
   const [totalPages, setTotalPages] = useState(
-    10 +
+    9 +
       projects.filter((p) => p.featured).length * CHAPTER_PAGES +
-      experience.length * 2
+      experience.length * 2 +
+      paginateIndex(buildSkillIndex(projects, toRoman, experience)).length
   );
 
   // Flagship projects get a full two-page chapter;
@@ -62,6 +96,10 @@ function Book() {
   // · appendix (2 pages) · skills index · leadership · back cover
   const firstChapter = 5 + experience.length * 2;
   const afterChapters = firstChapter + chapters.length * CHAPTER_PAGES;
+
+  // pageIndex depends on how many pages the index needs, so build it first.
+  const skillIndex = buildSkillIndex(projects, toRoman, experience);
+  const indexPages = paginateIndex(skillIndex);
   const pageIndex = {
     home: 0,
     contents: 2,
@@ -71,11 +109,10 @@ function Book() {
     projects: firstChapter,
     appendix: afterChapters,
     index: afterChapters + 2,
-    leadership: afterChapters + 3,
-    contact: afterChapters + 4,
+    leadership: afterChapters + 2 + indexPages.length,
+    contact: afterChapters + 3 + indexPages.length,
   };
 
-  const skillIndex = buildSkillIndex(projects, toRoman, experience);
 
   const refPage = (target) => {
     if (target.type === "chapter") {
@@ -202,7 +239,7 @@ function Book() {
       return `PART TWO · CHAPTER ${toRoman(projectNumber)}`;
     }
 
-    if (page === pageIndex.index) {
+    if (page >= pageIndex.index && page < pageIndex.leadership) {
       return "EPILOGUE · INDEX OF SKILLS";
     }
 
@@ -874,27 +911,31 @@ function Book() {
                 INDEX OF SKILLS
                 Alphabetical, with the chapters that use each skill.
             ======================== */}
-            <BookPage className="index-page">
+            {indexPages.map((groupsOnPage, indexPageIdx) => (
+            <BookPage className="index-page" key={`index-${indexPageIdx}`}>
 
               <p className="eyebrow">
                 Index
               </p>
 
               <h2>
-                Index of Skills
+                {indexPageIdx === 0 ? "Index of Skills" : "Index of Skills, continued"}
               </h2>
 
-              <p className="index-key">
-                Numerals refer to chapters
-                {chapters.map((project, i) => (
-                  ` · ${toRoman(i + 1)} ${project.title.split(":")[0]}`
-                ))}
-                {" · A appendix · E externship"}
-              </p>
+              {/* The key only belongs on the first page of the run. */}
+              {indexPageIdx === 0 && (
+                <p className="index-key">
+                  Numerals refer to chapters
+                  {chapters.map((project, i) => (
+                    ` · ${toRoman(i + 1)} ${project.title.split(":")[0]}`
+                  ))}
+                  {" · A appendix · E externship"}
+                </p>
+              )}
 
               <div className="index-columns">
 
-                {skillIndex.map((group) => (
+                {groupsOnPage.map((group) => (
 
                   <div
                     className="index-group"
@@ -940,6 +981,7 @@ function Book() {
               </div>
 
             </BookPage>
+            ))}
 
 
             {/* ========================
