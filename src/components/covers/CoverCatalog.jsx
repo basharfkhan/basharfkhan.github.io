@@ -17,8 +17,13 @@ function CoverCatalog({ chapters, appendixCount, onOpen }) {
       value: `${job.program} ${job.type.toLowerCase()} (${job.dates})`,
     })),
     {
+      // Mirrors the contents page: the externship is a chapter of its own now,
+      // and the smaller projects are Interludes rather than an appendix.
       label: "Contents",
-      value: `${chapters.length} chapters (${chapters.join(", ")}), plus ${appendixCount} more projects in the appendix`,
+      value: `Two parts, ${experience.length + chapters.length} chapters (${[
+        ...experience.map((job) => job.shortName),
+        ...chapters,
+      ].join(", ")}), plus ${appendixCount} more projects in the interludes`,
     },
     {
       label: "Subjects",
