@@ -6,7 +6,16 @@ import { toRoman } from "./roman";
 import CoverCatalog from "./covers/CoverCatalog";
 import { useBookScale } from "./useBookScale";
 import Sigil from "./Sigil";
+import ResultBlock from "./ResultBlock";
 import Spheres from "./Spheres";
+
+/*
+  A chapter is two spreads: the opening, then three results pages composed by
+  hand in portfolio.js. Pages are a fixed height, so nothing here may overflow;
+  where content used to run past the page it scrolled, which a book should
+  never ask anyone to do, and more than half of some pages was never seen.
+*/
+const CHAPTER_PAGES = 4;
 
 // "Alexandria: Book Recommender" -> name + descriptor. Titles without a colon
 // keep the whole string as the name.
@@ -33,7 +42,7 @@ function Book() {
   // first paint, before the flipbook reports its page count.
   const [totalPages, setTotalPages] = useState(
     10 +
-      projects.filter((p) => p.featured).length * 2 +
+      projects.filter((p) => p.featured).length * CHAPTER_PAGES +
       experience.length * 2
   );
 
@@ -52,7 +61,7 @@ function Book() {
   // 5+ work experience (2 pages each) · chapters (2 pages each)
   // · appendix (2 pages) · skills index · leadership · back cover
   const firstChapter = 5 + experience.length * 2;
-  const afterChapters = firstChapter + chapters.length * 2;
+  const afterChapters = firstChapter + chapters.length * CHAPTER_PAGES;
   const pageIndex = {
     home: 0,
     contents: 2,
@@ -70,7 +79,7 @@ function Book() {
 
   const refPage = (target) => {
     if (target.type === "chapter") {
-      return pageIndex.projects + target.index * 2;
+      return pageIndex.projects + target.index * CHAPTER_PAGES;
     }
 
     if (target.type === "experience") {
@@ -109,7 +118,7 @@ function Book() {
       entries: chapters.map((project, i) => ({
         numeral: toRoman(i + 1),
         label: project.title.split(":")[0],
-        page: pageIndex.projects + i * 2,
+        page: pageIndex.projects + i * CHAPTER_PAGES,
       })),
     },
     {
@@ -188,7 +197,7 @@ function Book() {
 
     if (page >= pageIndex.projects && page < pageIndex.appendix) {
       const projectPageOffset = page - pageIndex.projects;
-      const projectNumber = Math.floor(projectPageOffset / 2) + 1;
+      const projectNumber = Math.floor(projectPageOffset / CHAPTER_PAGES) + 1;
 
       return `PART TWO · CHAPTER ${toRoman(projectNumber)}`;
     }
@@ -788,140 +797,32 @@ function Book() {
                 RIGHT PAGE — CASE STUDY
               ====================================================== */
 
-              <BookPage
-                key={`${project.number}-details`}
-                className="project-detail-page"
-              >
+              ...project.resultPages.map((resultPage, pageIdx) => (
+                <BookPage
+                  key={`${project.number}-results-${pageIdx}`}
+                  className="project-detail-page"
+                >
 
-                <p className="eyebrow">
-                  Chapter {toRoman(chapterIndex + 1)} · Case Study
-                </p>
-
-                <h2>
-                  Architecture & Results
-                </h2>
-
-                {project.epigraph && (
-                  <p className="epigraph">
-                    {project.epigraph.text}
-                    {project.epigraph.source && (
-                      <span className="epigraph-source">
-                        {project.epigraph.source}
-                      </span>
-                    )}
+                  <p className="eyebrow">
+                    Chapter {toRoman(chapterIndex + 1)} &middot; {resultPage.label}
                   </p>
-                )}
 
+                  <h2>
+                    {resultPage.heading}
+                  </h2>
 
-                {/* Project Images */}
-
-                {project.images && project.images.length > 0 && (
-                  <div
-                    className={`project-images ${
-                      project.images.length > 1 ? "multiple-images" : ""
-                    }`}
-                  >
-                    {project.images.map((image, imageIndex) => (
-                      <figure
-                        className="project-image-wrapper"
-                        key={image.src}
-                      >
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="project-image"
-                          draggable="false"
-                        />
-
-                        <figcaption>
-                          <span className="fig-label">
-                            Fig. {toRoman(chapterIndex + 1)}.{imageIndex + 1}
-                          </span>
-                          {image.caption}
-                        </figcaption>
-                      </figure>
-                    ))}
-                  </div>
-                )}
-
-
-                {/* Project statistics */}
-
-                <div className="project-stat-grid">
-
-                  {project.stats.map((stat) => (
-
-                    <div
-                      className="project-stat"
-                      key={stat.label}
-                    >
-
-                      <strong>
-                        {stat.value}
-                      </strong>
-
-                      <span>
-                        {stat.label}
-                      </span>
-
-                    </div>
-
+                  {resultPage.blocks.map((block, blockIdx) => (
+                    <ResultBlock
+                      key={`${typeof block === "string" ? block : block.name}-${blockIdx}`}
+                      block={block}
+                      project={project}
+                      chapterIndex={chapterIndex}
+                      toRoman={toRoman}
+                    />
                   ))}
 
-                </div>
-
-
-                {/* Key results */}
-
-                <div className="project-results">
-
-                  <span className="project-section-label">
-                    Key Takeaways
-                  </span>
-
-                  <ul className="project-highlights">
-
-                    {project.highlights.map((highlight) => (
-
-                      <li key={highlight}>
-                        {highlight}
-                      </li>
-
-                    ))}
-
-                  </ul>
-
-                </div>
-
-
-                {/* Links */}
-
-                <div className="project-links">
-
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View GitHub ↗
-                  </a>
-
-
-                  {project.demo && (
-
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Live Demo ↗
-                    </a>
-
-                  )}
-
-                </div>
-
-              </BookPage>, 
+                </BookPage>
+              )),
 
             ])}
 

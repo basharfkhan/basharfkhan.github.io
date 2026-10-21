@@ -390,13 +390,13 @@ a {
 }
 
 
-/* Case-study pages carry figures, statistics and takeaways, which together run past a
-   fixed-height page. The page cannot grow, so it scrolls instead: clipping silently hid
-   the results half of every long entry. Flipping is driven by the page corners and the
-   Previous/Next controls, so an inner scroll does not compete with it. */
+/* Chapters are paginated across two spreads now, so nothing runs past its page
+   and the inner scroll is gone. Nobody expects to scroll inside a book, and the
+   scrollbar only appeared once you tried, so content below the fold read as a
+   rendering fault rather than as something to reach for. */
 
 .project-detail-page .page-content {
-  overflow-y: auto;
+  overflow: hidden;
 
   scrollbar-width: thin;
 
@@ -701,7 +701,7 @@ a {
 
 .project-images {
   width: 100%;
-  margin: 5px 0 15px;
+  margin: 5px 0 11px;
 }
 
 .project-images.multiple-images {
@@ -764,7 +764,16 @@ a {
 }
 
 .project-images.multiple-images .project-image {
-  max-height: 145px;
+  max-height: 128px;
+}
+
+/* In a grid the figures sit two to a row, so the captions are the tallest
+   part of each cell. They set a little tighter there so a run of figures
+   closes inside its page. */
+.project-images.multiple-images figcaption {
+  margin-top: 5px;
+  font-size: 0.68rem;
+  line-height: 1.32;
 }
 
 .project-images.multiple-images figcaption {
@@ -2648,9 +2657,9 @@ a {
   line-height: 1.45;
 }
 
-/* The overview page scrolls like the results page if it runs long */
+/* Fits its page; see the note on the results pages. */
 .experience-page .page-content {
-  overflow-y: auto;
+  overflow: hidden;
 
   scrollbar-width: thin;
   scrollbar-color: rgba(151, 118, 62, 0.4) transparent;
@@ -2702,10 +2711,10 @@ a {
 }
 
 
-/* Same inner scroll the results and experience pages already use. Without it
-   a long tech list is silently clipped instead of being reachable. */
+/* Opening pages fit their content now; kept hidden so a stray overflow shows
+   up in review rather than hiding behind a scrollbar nobody finds. */
 .project-intro-page .page-content {
-  overflow-y: auto;
+  overflow: hidden;
 
   scrollbar-width: thin;
   scrollbar-color: rgba(151, 118, 62, 0.4) transparent;
@@ -2819,4 +2828,21 @@ a {
   font-family: "Courier Prime", monospace;
   font-size: 0.68rem;
   letter-spacing: 0.14em;
+}
+
+
+/* A long run of figures goes three to a row. Two-up overflows a fixed-height
+   page at five figures, and the page can no longer scroll to compensate. */
+.project-images.dense-images {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.project-images.dense-images .project-image {
+  max-height: 104px;
+}
+
+.project-images.dense-images figcaption {
+  font-size: 0.63rem;
+  line-height: 1.28;
 }

@@ -16,6 +16,17 @@ export const projects = [
     subtitle:
       "Full-Stack Recommender System That Learns As You Read",
 
+
+    /*
+      The three results pages, composed by hand rather than by measuring at
+      runtime. Each entry is one page; blocks are rendered in the order listed.
+      "approachRest" picks up the build steps the opening page does not show.
+    */
+    resultPages: [
+      { label: "Method", heading: "Building It", blocks: ["approachRest"] },
+      { label: "Architecture", heading: "Architecture", blocks: ["images", "stats"] },
+      { label: "Results", heading: "Results", blocks: ["epigraph", "highlights", "links"] },
+    ],
     sigil: "book",
 
     // Opens the results page. Attributed only where the source is a real document.
@@ -113,6 +124,17 @@ export const projects = [
     subtitle:
       "Multi-Agent Transformer for Conflict Warning",
 
+
+    resultPages: [
+      { label: "Method", heading: "Building It",
+        blocks: ["approachRest", "stats"] },
+      { label: "Architecture", heading: "What the Model Sees",
+        blocks: ["images"] },
+      // The most figures and the most takeaways of any chapter, so the stats
+      // sit a page earlier rather than crowding the takeaways off this one.
+      { label: "Results", heading: "Results",
+        blocks: ["epigraph", "highlights", "links"] },
+    ],
     sigil: "converge",
 
     epigraph: {
@@ -228,6 +250,12 @@ export const projects = [
     subtitle:
       "Spaceflight Pre-Mortem Agent Over NASA's Lessons Learned",
 
+
+    resultPages: [
+      { label: "Method", heading: "Building It", blocks: ["approachRest"] },
+      { label: "Architecture", heading: "Architecture", blocks: ["images", "stats"] },
+      { label: "Results", heading: "Results", blocks: ["epigraph", "highlights", "links"] },
+    ],
     sigil: "lens",
 
     epigraph: {
