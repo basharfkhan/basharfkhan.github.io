@@ -18,7 +18,7 @@ export const projects = [
 
     sigil: "book",
 
-    // Opens the results page. DRAFT: rewrite in your own words.
+    // Opens the results page. Attributed only where the source is a real document.
     epigraph: {
       text:
         "A thirty percent gain on a held-out set is a claim about the metric. Whether it is also a claim about the reader is a separate question, and it needs a separate experiment.",
@@ -115,11 +115,9 @@ export const projects = [
 
     sigil: "converge",
 
-    // DRAFT: rewrite in your own words.
     epigraph: {
       text:
         "Fourteen times the parameters bought less than one percent. Letting the model see the other aircraft bought twenty-one. Capacity was not the bottleneck.",
-      source: "From the ablation chain",
     },
 
     type:
@@ -232,11 +230,9 @@ export const projects = [
 
     sigil: "lens",
 
-    // DRAFT: rewrite in your own words.
     epigraph: {
       text:
         "Every failure in the corpus was written down by someone who had already paid for it. The work is making sure the next person finds it in time.",
-      source: "On the lessons learned corpus",
     },
 
     type:

@@ -804,9 +804,11 @@ function Book() {
                 {project.epigraph && (
                   <p className="epigraph">
                     {project.epigraph.text}
-                    <span className="epigraph-source">
-                      {project.epigraph.source}
-                    </span>
+                    {project.epigraph.source && (
+                      <span className="epigraph-source">
+                        {project.epigraph.source}
+                      </span>
+                    )}
                   </p>
                 )}
 
