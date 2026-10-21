@@ -105,8 +105,18 @@ function Book() {
 
   const goToPage = (page) => {
     const pageFlip = book.current?.pageFlip();
+    if (!pageFlip) return;
 
-    if (pageFlip) {
+    /*
+      flip() animates a page turn, and from the closed cover there is no page
+      to turn: it silently does nothing, so every nav button and the cover's
+      own "Open the book" were dead until the reader had opened the book with
+      the Next arrow. turnToPage jumps without animation and works from any
+      state, so the cover uses that and everything else keeps the animation.
+    */
+    if (pageFlip.getCurrentPageIndex() === 0) {
+      pageFlip.turnToPage(page);
+    } else {
       pageFlip.flip(page, "bottom");
     }
   };
