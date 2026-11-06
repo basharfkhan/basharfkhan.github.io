@@ -231,7 +231,8 @@ export const projects = [
     github:
       "https://github.com/basharfkhan/pcas",
 
-    demo: null
+    demo:
+      "https://basharkhan.dev/pcas/"
   },
 
   /* ======================================================
